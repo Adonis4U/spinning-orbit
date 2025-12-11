@@ -1,0 +1,297 @@
+/* ===========================================
+   LOOKBOOK PAGE STYLES - FIXED
+   Editorial fashion gallery
+   =========================================== */
+
+.page {
+    min-height: 100vh;
+    background: var(--color-surface);
+    padding-top: 80px;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    padding: 4rem 1.5rem 3rem;
+    text-align: center;
+    background: linear-gradient(135deg, hsl(280, 30%, 12%) 0%, var(--color-background) 50%, hsl(43, 30%, 12%) 100%);
+}
+
+.heroBackground {
+    display: none;
+}
+
+.heroContent {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: hsla(43, 96%, 56%, 0.1);
+    color: var(--color-accent);
+    border: 1px solid hsla(43, 96%, 56%, 0.3);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+/* Lookbook Grid */
+.lookbooksSection {
+    padding: 4rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.lookbooksGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+/* Lookbook Card */
+.lookbookCard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    padding: 2rem;
+    background: var(--color-background);
+    border-radius: 1.5rem;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--color-border);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.lookbookCard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px -15px hsla(0, 0%, 0%, 0.25);
+}
+
+.lookbookCard:nth-child(even) {
+    direction: rtl;
+}
+
+.lookbookCard:nth-child(even)>* {
+    direction: ltr;
+}
+
+@media (max-width: 900px) {
+
+    .lookbookCard,
+    .lookbookCard:nth-child(even) {
+        grid-template-columns: 1fr;
+        direction: ltr;
+    }
+}
+
+.imageSection {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.heroImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.lookbookCard:hover .heroImage {
+    transform: scale(1.05);
+}
+
+.signBadge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: hsla(0, 0%, 0%, 0.75);
+    backdrop-filter: blur(10px);
+    border-radius: 9999px;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.contentSection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.lookbookTitle {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 400;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.lookbookDesc {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.metaInfo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.metaItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.metaLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.metaValue {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.viewButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.75rem;
+    background: transparent;
+    color: var(--color-text);
+    border: 1.5px solid var(--color-border);
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.viewButton:hover,
+.lookbookCard:hover .viewButton {
+    background: var(--color-accent);
+    color: #1a1a1a;
+    border-color: var(--color-accent);
+}
+
+/* Gallery Preview */
+.galleryPreview {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+.previewImage {
+    aspect-ratio: 1;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.previewImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.previewImage:hover img {
+    opacity: 1;
+    transform: scale(1.08);
+}
+
+/* Empty State */
+.emptyState {
+    text-align: center;
+    padding: 4rem;
+    color: var(--color-text-secondary);
+}
+
+.emptyIcon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Loading State */
+.loadingState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem;
+    gap: 1rem;
+    color: var(--color-text-secondary);
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+    color: var(--color-accent);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Error State */
+.errorState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem;
+    gap: 1rem;
+    color: var(--color-text-secondary);
+    text-align: center;
+}

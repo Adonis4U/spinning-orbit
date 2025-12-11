@@ -1,0 +1,346 @@
+/* ===========================================
+   MINI VENUS CALCULATOR STYLES
+   White/cream card design matching reference
+   =========================================== */
+
+.calculator {
+    width: 100%;
+    max-width: 420px;
+    padding: var(--space-8);
+    background: linear-gradient(135deg,
+            hsl(30, 30%, 97%) 0%,
+            hsl(30, 25%, 95%) 100%);
+    border-radius: var(--radius-2xl);
+    box-shadow:
+        0 4px 24px hsla(0, 0%, 0%, 0.08),
+        0 12px 48px hsla(0, 0%, 0%, 0.12);
+}
+
+/* Form */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+}
+
+.formHeader {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-1);
+}
+
+.formIcon {
+    color: hsl(25, 45%, 50%);
+}
+
+.formTitle {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: hsl(25, 30%, 25%);
+    margin: 0;
+}
+
+.formSubtitle {
+    font-size: var(--font-size-sm);
+    color: hsl(25, 20%, 45%);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: hsl(25, 25%, 35%);
+}
+
+.inputWrapper {
+    position: relative;
+}
+
+.input {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-sm);
+    color: hsl(25, 30%, 25%);
+    background: white;
+    border: 1px solid hsl(25, 20%, 85%);
+    border-radius: var(--radius-lg);
+    outline: none;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.input:focus {
+    border-color: hsl(25, 45%, 55%);
+    box-shadow: 0 0 0 3px hsla(25, 45%, 55%, 0.15);
+}
+
+.input::placeholder {
+    color: hsl(25, 15%, 65%);
+}
+
+.inputIcon {
+    position: absolute;
+    right: var(--space-3);
+    top: 50%;
+    transform: translateY(-50%);
+    color: hsl(25, 20%, 70%);
+    pointer-events: none;
+}
+
+.inputHint {
+    font-size: var(--font-size-xs);
+    color: hsl(25, 20%, 55%);
+    font-style: italic;
+}
+
+.submitButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-6);
+    margin-top: var(--space-2);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: white;
+    background: linear-gradient(135deg,
+            hsl(25, 50%, 50%) 0%,
+            hsl(25, 45%, 45%) 100%);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.submitButton:hover:not(:disabled) {
+    background: linear-gradient(135deg,
+            hsl(25, 55%, 55%) 0%,
+            hsl(25, 50%, 50%) 100%);
+    box-shadow: 0 4px 16px hsla(25, 50%, 50%, 0.35);
+}
+
+.submitButton:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.loadingText {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid hsla(0, 0%, 100%, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Result */
+.result {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-4);
+}
+
+.resetButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    color: hsl(25, 20%, 55%);
+    background: hsl(25, 20%, 92%);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.resetButton:hover {
+    color: hsl(25, 30%, 35%);
+    background: hsl(25, 20%, 88%);
+}
+
+.signHeader {
+    margin-bottom: var(--space-2);
+}
+
+.signSymbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    font-size: 2rem;
+    background: linear-gradient(135deg,
+            hsl(280, 60%, 55%) 0%,
+            hsl(260, 50%, 50%) 100%);
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 16px hsla(280, 60%, 50%, 0.3);
+}
+
+.signTitle {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: hsl(25, 30%, 25%);
+    margin: 0;
+}
+
+/* Keywords */
+.keywords {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2);
+}
+
+.keywordTag {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: hsl(25, 30%, 35%);
+    background: white;
+    border: 1px solid hsl(25, 20%, 85%);
+    border-radius: var(--radius-full);
+}
+
+/* Color Palette */
+.colorPalette {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-3);
+    padding: var(--space-3) 0;
+}
+
+.colorDot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px hsla(0, 0%, 0%, 0.15);
+    border: 2px solid white;
+}
+
+/* Actions */
+.actions {
+    display: flex;
+    gap: var(--space-3);
+    width: 100%;
+    margin-top: var(--space-2);
+}
+
+.actionPrimary {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: white;
+    background: linear-gradient(135deg,
+            hsl(25, 50%, 50%) 0%,
+            hsl(25, 45%, 45%) 100%);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.actionPrimary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsla(25, 50%, 50%, 0.3);
+}
+
+.actionSecondary {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: hsl(25, 35%, 35%);
+    background: white;
+    border: 1px solid hsl(25, 20%, 80%);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.actionSecondary:hover {
+    background: hsl(25, 20%, 97%);
+    border-color: hsl(25, 30%, 70%);
+}
+
+.lookbookLink {
+    font-size: var(--font-size-sm);
+    color: hsl(25, 40%, 50%);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: color var(--duration-fast) var(--ease-out);
+}
+
+.lookbookLink:hover {
+    color: hsl(25, 50%, 40%);
+}
+
+/* Matches */
+.matches {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-top: var(--space-4);
+    border-top: 1px solid hsl(25, 20%, 90%);
+    width: 100%;
+}
+
+.matchesLabel {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: hsl(25, 45%, 50%);
+}
+
+.matchesList {
+    font-size: var(--font-size-sm);
+    color: hsl(25, 30%, 35%);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .calculator {
+        padding: var(--space-6);
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,105 @@
+/* ===========================================
+   STARFIELD COMPONENT STYLES
+   =========================================== */
+
+.starfield {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Individual star */
+.star {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  animation: twinkle var(--duration-slower) ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}
+
+/* Shooting star */
+.shootingStar {
+  position: absolute;
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsla(43, 96%, 56%, 0.8) 50%,
+    white 100%
+  );
+  border-radius: 0 50px 50px 0;
+  transform: rotate(-45deg);
+  opacity: 0;
+  animation: shootingStar 2s ease-out infinite;
+}
+
+@keyframes shootingStar {
+  0% {
+    opacity: 0;
+    transform: rotate(-45deg) translateX(0);
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(-45deg) translateX(500px);
+  }
+}
+
+/* Nebula effects */
+.nebula1 {
+  position: absolute;
+  top: 10%;
+  left: 20%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(
+    circle,
+    hsla(270, 60%, 50%, 0.15) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: nebulaPulse 8s ease-in-out infinite;
+}
+
+.nebula2 {
+  position: absolute;
+  bottom: 20%;
+  right: 10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    hsla(43, 96%, 56%, 0.1) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  filter: blur(50px);
+  animation: nebulaPulse 10s ease-in-out infinite 2s;
+}
+
+@keyframes nebulaPulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}

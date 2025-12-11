@@ -1,0 +1,244 @@
+/* ===========================================
+   DAILY HOROSCOPE SECTION STYLES
+   =========================================== */
+
+.section {
+    padding: var(--space-16) 0;
+    background: var(--color-bg-secondary);
+}
+
+@media screen and (min-width: 768px) {
+    .section {
+        padding: var(--space-20) 0;
+    }
+}
+
+/* Card container */
+.card {
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: var(--space-8);
+    background: var(--color-surface-card);
+    border: var(--border-width-thin) solid var(--color-border-light);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+}
+
+@media screen and (min-width: 768px) {
+    .card {
+        padding: var(--space-10);
+    }
+}
+
+/* Decorative stars */
+.decorStar1,
+.decorStar2,
+.decorStar3 {
+    position: absolute;
+    color: var(--color-gold);
+    opacity: 0.3;
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+.decorStar1 {
+    top: var(--space-4);
+    right: var(--space-6);
+    animation-delay: 0s;
+}
+
+.decorStar2 {
+    top: var(--space-8);
+    left: var(--space-4);
+    animation-delay: 1s;
+}
+
+.decorStar3 {
+    bottom: var(--space-6);
+    right: var(--space-10);
+    animation-delay: 2s;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 0.2;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(1.2);
+    }
+}
+
+/* Content */
+.content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+}
+
+.icon {
+    color: var(--color-gold);
+}
+
+.title {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+}
+
+@media screen and (min-width: 768px) {
+    .title {
+        font-size: var(--font-size-2xl);
+    }
+}
+
+/* Sign selector */
+.signSelector {
+    margin-bottom: var(--space-6);
+}
+
+.selectedSign {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.signSymbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    font-size: var(--font-size-xl);
+    border-radius: 50%;
+    filter: grayscale(1) brightness(10);
+}
+
+.signName {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+}
+
+.signPills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+.signPill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    font-size: var(--font-size-sm);
+    background: var(--color-bg-tertiary);
+    border: 2px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.signPill:hover {
+    background: var(--sign-color);
+    border-color: var(--sign-color);
+}
+
+.signPill.active {
+    background: var(--sign-color);
+    border-color: var(--sign-color);
+    box-shadow: 0 0 0 3px hsla(0, 0%, 0%, 0.1);
+}
+
+/* Horoscope content */
+.horoscope {
+    display: grid;
+    gap: var(--space-6);
+    padding: var(--space-6) 0;
+    border-top: var(--border-width-thin) solid var(--color-border-light);
+    border-bottom: var(--border-width-thin) solid var(--color-border-light);
+    margin-bottom: var(--space-4);
+}
+
+@media screen and (min-width: 640px) {
+    .horoscope {
+        grid-template-columns: 1fr auto;
+    }
+}
+
+.tipSection {
+    flex: 1;
+}
+
+.tipLabel,
+.colorLabel {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wider);
+    margin-bottom: var(--space-2);
+}
+
+.tipText {
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+    line-height: var(--line-height-relaxed);
+}
+
+.colorSection {
+    text-align: left;
+}
+
+@media screen and (min-width: 640px) {
+    .colorSection {
+        text-align: right;
+    }
+}
+
+.colorChip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-full);
+}
+
+.colorSwatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px hsla(0, 0%, 0%, 0.1);
+}
+
+.colorName {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+}
+
+/* Refresh hint */
+.refresh {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}

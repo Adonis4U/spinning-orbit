@@ -1,0 +1,349 @@
+/* ===========================================
+   HEADER COMPONENT STYLES
+   =========================================== */
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    width: 100%;
+    height: var(--header-height-mobile);
+    background-color: var(--color-bg-elevated);
+    border-bottom: var(--border-width-thin) solid var(--color-border-light);
+    backdrop-filter: blur(12px);
+    transition: background-color var(--duration-normal) var(--ease-in-out),
+        border-color var(--duration-normal) var(--ease-in-out);
+}
+
+@media screen and (min-width: 768px) {
+    .header {
+        height: var(--header-height);
+    }
+}
+
+.headerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    max-width: var(--container-full);
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+}
+
+@media screen and (min-width: 640px) {
+    .headerContainer {
+        padding: 0 var(--space-6);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .headerContainer {
+        padding: 0 var(--space-8);
+    }
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    letter-spacing: var(--letter-spacing-wide);
+    text-decoration: none;
+    transition: opacity var(--duration-fast) var(--ease-in-out);
+}
+
+.logo:hover {
+    opacity: 0.8;
+    color: var(--color-text-primary);
+}
+
+@media screen and (min-width: 768px) {
+    .logo {
+        font-size: var(--font-size-xl);
+    }
+}
+
+.logoIcon {
+    width: 28px;
+    height: 28px;
+    color: var(--color-gold);
+}
+
+@media screen and (min-width: 768px) {
+    .logoIcon {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.logoTextVenus {
+    background: var(--color-gold-shimmer);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Desktop Navigation */
+.desktopNav {
+    display: none;
+}
+
+@media screen and (min-width: 1024px) {
+    .desktopNav {
+        display: flex;
+        align-items: center;
+        gap: var(--space-1);
+    }
+}
+
+.navLink {
+    position: relative;
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+    border-radius: var(--radius-md);
+    transition: color var(--duration-fast) var(--ease-in-out),
+        background-color var(--duration-fast) var(--ease-in-out);
+}
+
+.navLink:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-hover);
+}
+
+.navLink::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--color-gold);
+    transform: translateX(-50%);
+    transition: width var(--duration-normal) var(--ease-out);
+}
+
+.navLink:hover::after,
+.navLinkActive::after {
+    width: calc(100% - var(--space-6));
+}
+
+.navLinkActive {
+    color: var(--color-gold);
+}
+
+/* Header Actions */
+.headerActions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+@media screen and (min-width: 768px) {
+    .headerActions {
+        gap: var(--space-2);
+    }
+}
+
+.iconButton {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--ease-in-out),
+        background-color var(--duration-fast) var(--ease-in-out);
+}
+
+.iconButton:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-hover);
+}
+
+.iconButton svg {
+    width: 20px;
+    height: 20px;
+}
+
+@media screen and (min-width: 768px) {
+    .iconButton svg {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+.cartBadge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 var(--space-1);
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-inverse);
+    background-color: var(--color-gold);
+    border-radius: var(--radius-full);
+}
+
+/* Language & Theme Toggles */
+.toggleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 var(--space-2);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: var(--border-width-thin) solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-in-out);
+}
+
+.toggleButton:hover {
+    color: var(--color-text-primary);
+    border-color: var(--color-border-medium);
+    background-color: var(--color-surface-hover);
+}
+
+.toggleButtonActive {
+    color: var(--color-gold);
+    border-color: var(--color-gold);
+}
+
+/* Mobile Menu Button */
+.mobileMenuButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: var(--color-text-primary);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+}
+
+@media screen and (min-width: 1024px) {
+    .mobileMenuButton {
+        display: none;
+    }
+}
+
+/* Mobile Navigation Overlay */
+.mobileNavOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal-backdrop);
+    background-color: var(--color-bg-overlay);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--duration-normal) var(--ease-in-out),
+        visibility var(--duration-normal) var(--ease-in-out);
+}
+
+.mobileNavOverlayOpen {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Mobile Navigation Panel */
+.mobileNav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: var(--z-modal);
+    width: 100%;
+    max-width: 320px;
+    height: 100vh;
+    background-color: var(--color-bg-elevated);
+    transform: translateX(100%);
+    transition: transform var(--duration-normal) var(--ease-out);
+    overflow-y: auto;
+}
+
+.mobileNavOpen {
+    transform: translateX(0);
+}
+
+.mobileNavHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4);
+    border-bottom: var(--border-width-thin) solid var(--color-border-light);
+}
+
+.mobileNavClose {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: var(--color-text-primary);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+}
+
+.mobileNavLinks {
+    padding: var(--space-4);
+}
+
+.mobileNavLink {
+    display: block;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: all var(--duration-fast) var(--ease-in-out);
+}
+
+.mobileNavLink:hover {
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-hover);
+}
+
+.mobileNavLinkActive {
+    color: var(--color-gold);
+    background-color: var(--color-surface-hover);
+}
+
+.mobileNavDivider {
+    height: 1px;
+    margin: var(--space-4) 0;
+    background-color: var(--color-border-light);
+}
+
+.mobileNavActions {
+    display: flex;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border-top: var(--border-width-thin) solid var(--color-border-light);
+}

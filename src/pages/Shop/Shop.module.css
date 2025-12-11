@@ -1,0 +1,520 @@
+/* ===========================================
+   SHOP PAGE STYLES - COMPLETELY FIXED
+   Premium product listing design
+   =========================================== */
+
+.page {
+    min-height: 100vh;
+    background: var(--color-surface);
+}
+
+/* Header with gradient and orbs */
+.header {
+    position: relative;
+    padding: 80px 24px 48px;
+    overflow: hidden;
+}
+
+.headerBackground {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            hsla(280, 60%, 50%, 0.06) 0%,
+            hsla(43, 80%, 50%, 0.04) 50%,
+            hsla(280, 60%, 50%, 0.06) 100%);
+}
+
+.floatingOrb {
+    position: absolute;
+    top: -100px;
+    right: 10%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle,
+            hsla(43, 96%, 56%, 0.12) 0%,
+            transparent 70%);
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.floatingOrb2 {
+    position: absolute;
+    bottom: -150px;
+    left: 5%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle,
+            hsla(280, 60%, 50%, 0.08) 0%,
+            transparent 70%);
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite reverse;
+    pointer-events: none;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-20px) scale(1.05);
+    }
+}
+
+.headerContent {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: center;
+    z-index: 1;
+}
+
+.headerBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-gold);
+    background: hsla(43, 96%, 56%, 0.1);
+    border: 1px solid hsla(43, 96%, 56%, 0.25);
+    border-radius: 100px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.title {
+    font-family: var(--font-family-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0 0 12px;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+/* Toolbar - Fixed Layout */
+.toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: 16px 24px;
+}
+
+.toolbarInner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Search - FIXED positioning */
+.searchWrapper {
+    position: relative;
+    width: 240px;
+    flex-shrink: 0;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-tertiary);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.searchInput {
+    width: 100%;
+    height: 42px;
+    padding: 0 16px 0 44px;
+    font-size: 14px;
+    color: var(--color-text-primary);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.searchInput::placeholder {
+    color: var(--color-text-tertiary);
+}
+
+.searchInput:focus {
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px hsla(43, 96%, 56%, 0.12);
+}
+
+/* Filter Toggle */
+.filterToggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 42px;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    white-space: nowrap;
+}
+
+.filterToggle:hover {
+    border-color: var(--color-gold);
+}
+
+.filterBadge {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 10px;
+    height: 10px;
+    background: var(--color-gold);
+    border-radius: 50%;
+    border: 2px solid var(--color-surface);
+}
+
+/* Sort - FIXED dropdown */
+.sortWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 42px;
+    padding: 0 36px 0 16px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    gap: 8px;
+}
+
+.sortWrapper svg:first-child {
+    color: var(--color-text-tertiary);
+    flex-shrink: 0;
+}
+
+.sortSelect {
+    appearance: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    min-width: 120px;
+    padding-right: 20px;
+}
+
+.sortSelect option {
+    background: var(--color-surface);
+    color: var(--color-text-primary);
+    padding: 12px;
+}
+
+.sortChevron {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--color-text-tertiary);
+}
+
+/* Grid Toggle */
+.gridToggle {
+    display: flex;
+    gap: 4px;
+    margin-left: auto;
+    padding: 4px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+}
+
+.gridButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    color: var(--color-text-tertiary);
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.gridButton:hover {
+    color: var(--color-text-primary);
+    background: var(--color-surface-elevated);
+}
+
+.gridButton.active {
+    color: var(--color-gold);
+    background: hsla(43, 96%, 56%, 0.1);
+}
+
+/* Filters Panel */
+.filtersPanel {
+    background: var(--color-surface-elevated);
+    border-bottom: 1px solid var(--color-border);
+    overflow: hidden;
+}
+
+.filtersPanelInner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.filterGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.filterTitle {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0;
+}
+
+.filterChips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Filter Chips - FIXED readability */
+.filterChip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filterChip:hover {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+}
+
+.filterChip.active {
+    background: var(--color-gold);
+    border-color: var(--color-gold);
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+.signChip {
+    padding: 8px 14px;
+}
+
+.signSymbol {
+    font-size: 14px;
+    line-height: 1;
+}
+
+/* Clear Filters */
+.clearFilters {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #dc2626;
+    background: hsla(0, 84%, 60%, 0.08);
+    border: 1px solid hsla(0, 84%, 60%, 0.2);
+    border-radius: 100px;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: all 0.2s ease;
+}
+
+.clearFilters:hover {
+    background: hsla(0, 84%, 60%, 0.12);
+}
+
+/* Results Info - FIXED alignment */
+.resultsInfo {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.resultsCount {
+    font-size: 14px;
+    color: var(--color-text-tertiary);
+}
+
+.activeSignBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #7c3aed;
+    background: hsla(263, 70%, 50%, 0.08);
+    border-radius: 100px;
+}
+
+/* Products Section */
+.productsSection {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px 64px;
+}
+
+.productsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.productsGrid.gridSmall {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+
+/* Empty State */
+.emptyState {
+    text-align: center;
+    padding: 80px 24px;
+}
+
+.emptyIcon {
+    font-size: 64px;
+    margin-bottom: 16px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+.emptyState p {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    margin-bottom: 24px;
+}
+
+.clearFiltersButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 32px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    background: linear-gradient(135deg, #d4a853, #b8902f);
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px hsla(43, 96%, 56%, 0.25);
+}
+
+.clearFiltersButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px hsla(43, 96%, 56%, 0.35);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .productsGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .productsGrid.gridSmall {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .productsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .productsGrid.gridSmall {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .toolbarInner {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .searchWrapper {
+        order: 10;
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .gridToggle {
+        margin-left: 0;
+    }
+
+    .productsGrid,
+    .productsGrid.gridSmall {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .productsGrid,
+    .productsGrid.gridSmall {
+        grid-template-columns: 1fr;
+    }
+}

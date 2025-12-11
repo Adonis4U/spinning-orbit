@@ -1,0 +1,347 @@
+/* ===========================================
+   COLLECTIONS PAGE STYLES - FIXED
+   Venus-inspired collection grid
+   =========================================== */
+
+.page {
+    min-height: 100vh;
+    background: var(--color-surface);
+    padding-top: 80px;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    padding: 4rem 1.5rem 3rem;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(135deg,
+            var(--color-background) 0%,
+            hsl(280, 30%, 15%) 50%,
+            var(--color-background) 100%);
+}
+
+.heroBackground {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.floatingOrb {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, hsla(43, 96%, 56%, 0.15) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    animation: float 15s ease-in-out infinite;
+}
+
+.floatingOrb2 {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, hsla(280, 60%, 50%, 0.1) 0%, transparent 70%);
+    bottom: -50px;
+    left: -50px;
+    animation: float 12s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(30px, -30px) scale(1.1);
+    }
+}
+
+.heroContent {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: hsla(43, 96%, 56%, 0.1);
+    color: var(--color-accent);
+    border: 1px solid hsla(43, 96%, 56%, 0.3);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Collections Grid */
+.collectionsSection {
+    padding: 4rem 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.collectionsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .collectionsGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Collection Card */
+.collectionCard {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    display: block;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border: 1px solid var(--color-border);
+}
+
+.collectionCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px -15px hsla(0, 0%, 0%, 0.4);
+}
+
+.cardImage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.collectionCard:hover .cardImage {
+    transform: scale(1.08);
+}
+
+.cardGradient {
+    position: absolute;
+    inset: 0;
+    opacity: 0.85;
+    transition: opacity 0.4s ease;
+}
+
+.collectionCard:hover .cardGradient {
+    opacity: 0.9;
+}
+
+.cardContent {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    z-index: 1;
+}
+
+.signBadges {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.signBadge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: hsla(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    border: 1px solid hsla(255, 255, 255, 0.25);
+}
+
+.collectionName {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 10px hsla(0, 0%, 0%, 0.4);
+}
+
+.collectionDesc {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    line-height: 1.5;
+    max-width: 400px;
+}
+
+.seasonTag {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.35rem 0.75rem;
+    background: hsla(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid hsla(255, 255, 255, 0.25);
+    font-weight: 600;
+}
+
+.exploreLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.collectionCard:hover .exploreLink {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Featured Collection (Full Width) */
+.featuredCollection {
+    grid-column: 1 / -1;
+}
+
+.featuredCollection .collectionCard {
+    aspect-ratio: 21 / 9;
+}
+
+.featuredCollection .cardContent {
+    padding: 2rem;
+}
+
+.featuredCollection .collectionName {
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.featuredCollection .collectionDesc {
+    max-width: 600px;
+    font-size: 1rem;
+}
+
+/* CTA Section */
+.ctaSection {
+    padding: 5rem 1.5rem;
+    text-align: center;
+    background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-background) 100%);
+}
+
+.ctaContent {
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+.ctaTitle {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 300;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+}
+
+.ctaText {
+    color: var(--color-text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+.ctaButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--color-accent), hsl(35, 96%, 45%));
+    color: #1a1a1a;
+    border: none;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ctaButton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px -8px hsla(43, 96%, 56%, 0.5);
+}
+
+/* Loading State */
+.loadingState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem;
+    gap: 1rem;
+    color: var(--color-text-secondary);
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+    color: var(--color-accent);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Error State */
+.errorState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem;
+    gap: 1rem;
+    color: var(--color-text-secondary);
+    text-align: center;
+}

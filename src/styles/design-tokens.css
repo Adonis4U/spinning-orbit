@@ -1,0 +1,380 @@
+/* ===========================================
+   HOUSE OF VENUS - DESIGN TOKENS
+   Cosmic Fashion Design System
+   =========================================== */
+
+:root {
+  /* ========================================
+     COLOR PALETTE - LIGHT MODE (Default)
+     ======================================== */
+  
+  /* Primary Brand Colors */
+  --color-primary-h: 45;
+  --color-primary-s: 89%;
+  --color-primary-l: 50%;
+  --color-primary: hsl(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l));
+  --color-primary-light: hsl(var(--color-primary-h), var(--color-primary-s), 65%);
+  --color-primary-dark: hsl(var(--color-primary-h), var(--color-primary-s), 40%);
+  
+  /* Gold Accent */
+  --color-gold-h: 43;
+  --color-gold-s: 96%;
+  --color-gold-l: 56%;
+  --color-gold: hsl(var(--color-gold-h), var(--color-gold-s), var(--color-gold-l));
+  --color-gold-shimmer: linear-gradient(135deg, 
+    hsl(40, 90%, 55%) 0%, 
+    hsl(45, 100%, 65%) 50%, 
+    hsl(40, 90%, 55%) 100%);
+  
+  /* Rose / Blush */
+  --color-rose-h: 350;
+  --color-rose-s: 60%;
+  --color-rose-l: 75%;
+  --color-rose: hsl(var(--color-rose-h), var(--color-rose-s), var(--color-rose-l));
+  --color-rose-light: hsl(var(--color-rose-h), var(--color-rose-s), 90%);
+  
+  /* Cosmic Purple */
+  --color-cosmic-h: 270;
+  --color-cosmic-s: 50%;
+  --color-cosmic-l: 45%;
+  --color-cosmic: hsl(var(--color-cosmic-h), var(--color-cosmic-s), var(--color-cosmic-l));
+  --color-cosmic-light: hsl(var(--color-cosmic-h), 40%, 70%);
+  
+  /* Backgrounds - Light Mode */
+  --color-bg-primary: hsl(40, 30%, 97%);
+  --color-bg-secondary: hsl(40, 25%, 94%);
+  --color-bg-tertiary: hsl(40, 20%, 90%);
+  --color-bg-elevated: hsl(0, 0%, 100%);
+  --color-bg-overlay: hsla(0, 0%, 0%, 0.5);
+  
+  /* Surfaces */
+  --color-surface-card: hsl(0, 0%, 100%);
+  --color-surface-hover: hsl(40, 25%, 96%);
+  --color-surface-active: hsl(40, 20%, 93%);
+  
+  /* Text Colors */
+  --color-text-primary: hsl(240, 10%, 15%);
+  --color-text-secondary: hsl(240, 5%, 40%);
+  --color-text-tertiary: hsl(240, 5%, 55%);
+  --color-text-muted: hsl(240, 5%, 65%);
+  --color-text-inverse: hsl(0, 0%, 100%);
+  
+  /* Border Colors */
+  --color-border-light: hsl(40, 15%, 88%);
+  --color-border-medium: hsl(40, 10%, 80%);
+  --color-border-dark: hsl(40, 10%, 70%);
+  
+  /* Status Colors */
+  --color-success: hsl(145, 65%, 42%);
+  --color-warning: hsl(40, 95%, 50%);
+  --color-error: hsl(0, 72%, 51%);
+  --color-info: hsl(210, 90%, 55%);
+  
+  /* ========================================
+     TYPOGRAPHY
+     ======================================== */
+  
+  /* Font Families */
+  --font-family-display: 'Playfair Display', 'Georgia', serif;
+  --font-family-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  /* Font Sizes - Mobile First */
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.875rem;    /* 14px */
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-xl: 1.25rem;     /* 20px */
+  --font-size-2xl: 1.5rem;     /* 24px */
+  --font-size-3xl: 1.875rem;   /* 30px */
+  --font-size-4xl: 2.25rem;    /* 36px */
+  --font-size-5xl: 3rem;       /* 48px */
+  --font-size-6xl: 3.75rem;    /* 60px */
+  --font-size-7xl: 4.5rem;     /* 72px */
+  
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.35;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.65;
+  --line-height-loose: 1.8;
+  
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+  
+  /* ========================================
+     SPACING
+     ======================================== */
+  
+  --space-0: 0;
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+  --space-32: 8rem;     /* 128px */
+  
+  /* ========================================
+     LAYOUT
+     ======================================== */
+  
+  --container-xs: 20rem;    /* 320px */
+  --container-sm: 24rem;    /* 384px */
+  --container-md: 28rem;    /* 448px */
+  --container-lg: 32rem;    /* 512px */
+  --container-xl: 36rem;    /* 576px */
+  --container-2xl: 42rem;   /* 672px */
+  --container-3xl: 48rem;   /* 768px */
+  --container-4xl: 56rem;   /* 896px */
+  --container-5xl: 64rem;   /* 1024px */
+  --container-6xl: 72rem;   /* 1152px */
+  --container-7xl: 80rem;   /* 1280px */
+  --container-full: 90rem;  /* 1440px */
+  
+  --header-height: 4.5rem;  /* 72px */
+  --header-height-mobile: 3.5rem; /* 56px */
+  
+  /* ========================================
+     BORDERS & RADIUS
+     ======================================== */
+  
+  --radius-none: 0;
+  --radius-sm: 0.25rem;    /* 4px */
+  --radius-md: 0.5rem;     /* 8px */
+  --radius-lg: 0.75rem;    /* 12px */
+  --radius-xl: 1rem;       /* 16px */
+  --radius-2xl: 1.5rem;    /* 24px */
+  --radius-3xl: 2rem;      /* 32px */
+  --radius-full: 9999px;
+  
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-width-thick: 3px;
+  
+  /* ========================================
+     SHADOWS
+     ======================================== */
+  
+  --shadow-xs: 0 1px 2px hsla(0, 0%, 0%, 0.05);
+  --shadow-sm: 0 1px 3px hsla(0, 0%, 0%, 0.1), 0 1px 2px hsla(0, 0%, 0%, 0.06);
+  --shadow-md: 0 4px 6px hsla(0, 0%, 0%, 0.1), 0 2px 4px hsla(0, 0%, 0%, 0.06);
+  --shadow-lg: 0 10px 15px hsla(0, 0%, 0%, 0.1), 0 4px 6px hsla(0, 0%, 0%, 0.05);
+  --shadow-xl: 0 20px 25px hsla(0, 0%, 0%, 0.1), 0 10px 10px hsla(0, 0%, 0%, 0.04);
+  --shadow-2xl: 0 25px 50px hsla(0, 0%, 0%, 0.25);
+  --shadow-inner: inset 0 2px 4px hsla(0, 0%, 0%, 0.06);
+  
+  /* Cosmic Glow Shadows */
+  --shadow-glow-gold: 0 0 20px hsla(43, 96%, 56%, 0.3);
+  --shadow-glow-rose: 0 0 20px hsla(350, 60%, 75%, 0.3);
+  --shadow-glow-cosmic: 0 0 20px hsla(270, 50%, 45%, 0.3);
+  
+  /* ========================================
+     Z-INDEX SCALE
+     ======================================== */
+  
+  --z-behind: -1;
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-tooltip: 700;
+  --z-toast: 800;
+  
+  /* ========================================
+     TRANSITIONS
+     ======================================== */
+  
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 350ms;
+  --duration-slower: 500ms;
+  --duration-slowest: 700ms;
+  
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-cosmic: cubic-bezier(0.25, 0.1, 0.25, 1);
+  
+  --transition-colors: color, background-color, border-color, text-decoration-color, fill, stroke;
+  --transition-all: all var(--duration-normal) var(--ease-in-out);
+  --transition-transform: transform var(--duration-normal) var(--ease-out);
+  --transition-opacity: opacity var(--duration-normal) var(--ease-in-out);
+  
+  /* ========================================
+     BREAKPOINTS (for reference in media queries)
+     ======================================== */
+  
+  /* 
+   * --bp-sm: 640px   - Large phones
+   * --bp-md: 768px   - Tablets
+   * --bp-lg: 1024px  - Small laptops
+   * --bp-xl: 1280px  - Desktops
+   * --bp-2xl: 1536px - Large screens
+   */
+}
+
+/* ===========================================
+   DARK MODE OVERRIDES
+   =========================================== */
+
+[data-theme="dark"] {
+  /* Backgrounds */
+  --color-bg-primary: hsl(240, 15%, 6%);
+  --color-bg-secondary: hsl(240, 12%, 10%);
+  --color-bg-tertiary: hsl(240, 10%, 14%);
+  --color-bg-elevated: hsl(240, 12%, 12%);
+  --color-bg-overlay: hsla(0, 0%, 0%, 0.7);
+  
+  /* Surfaces */
+  --color-surface-card: hsl(240, 12%, 10%);
+  --color-surface-hover: hsl(240, 10%, 15%);
+  --color-surface-active: hsl(240, 10%, 18%);
+  
+  /* Text Colors */
+  --color-text-primary: hsl(0, 0%, 95%);
+  --color-text-secondary: hsl(240, 5%, 70%);
+  --color-text-tertiary: hsl(240, 5%, 55%);
+  --color-text-muted: hsl(240, 5%, 45%);
+  --color-text-inverse: hsl(240, 10%, 10%);
+  
+  /* Border Colors */
+  --color-border-light: hsl(240, 10%, 20%);
+  --color-border-medium: hsl(240, 10%, 25%);
+  --color-border-dark: hsl(240, 10%, 30%);
+  
+  /* Enhanced Gold for Dark Mode */
+  --color-gold: hsl(43, 100%, 60%);
+  --color-gold-shimmer: linear-gradient(135deg, 
+    hsl(40, 100%, 55%) 0%, 
+    hsl(48, 100%, 70%) 50%, 
+    hsl(40, 100%, 55%) 100%);
+  
+  /* Enhanced Cosmic Purple for Dark Mode */
+  --color-cosmic: hsl(270, 60%, 60%);
+  --color-cosmic-light: hsl(270, 50%, 70%);
+  
+  /* Shadows for Dark Mode */
+  --shadow-sm: 0 1px 3px hsla(0, 0%, 0%, 0.3), 0 1px 2px hsla(0, 0%, 0%, 0.2);
+  --shadow-md: 0 4px 6px hsla(0, 0%, 0%, 0.3), 0 2px 4px hsla(0, 0%, 0%, 0.2);
+  --shadow-lg: 0 10px 15px hsla(0, 0%, 0%, 0.3), 0 4px 6px hsla(0, 0%, 0%, 0.2);
+  --shadow-xl: 0 20px 25px hsla(0, 0%, 0%, 0.4), 0 10px 10px hsla(0, 0%, 0%, 0.2);
+  
+  /* Cosmic Glow - Enhanced for Dark Mode */
+  --shadow-glow-gold: 0 0 30px hsla(43, 96%, 60%, 0.4);
+  --shadow-glow-rose: 0 0 30px hsla(350, 60%, 65%, 0.4);
+  --shadow-glow-cosmic: 0 0 30px hsla(270, 60%, 55%, 0.4);
+}
+
+/* System preference support */
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] {
+    --color-bg-primary: hsl(240, 15%, 6%);
+    --color-bg-secondary: hsl(240, 12%, 10%);
+    --color-bg-tertiary: hsl(240, 10%, 14%);
+    --color-bg-elevated: hsl(240, 12%, 12%);
+    --color-bg-overlay: hsla(0, 0%, 0%, 0.7);
+    --color-surface-card: hsl(240, 12%, 10%);
+    --color-surface-hover: hsl(240, 10%, 15%);
+    --color-surface-active: hsl(240, 10%, 18%);
+    --color-text-primary: hsl(0, 0%, 95%);
+    --color-text-secondary: hsl(240, 5%, 70%);
+    --color-text-tertiary: hsl(240, 5%, 55%);
+    --color-text-muted: hsl(240, 5%, 45%);
+    --color-text-inverse: hsl(240, 10%, 10%);
+    --color-border-light: hsl(240, 10%, 20%);
+    --color-border-medium: hsl(240, 10%, 25%);
+    --color-border-dark: hsl(240, 10%, 30%);
+    --color-gold: hsl(43, 100%, 60%);
+    --color-cosmic: hsl(270, 60%, 60%);
+  }
+}
+
+/* ===========================================
+   ZODIAC SIGN COLORS
+   =========================================== */
+
+:root {
+  /* Aries - Fiery Red */
+  --zodiac-aries: hsl(0, 80%, 55%);
+  --zodiac-aries-light: hsl(0, 80%, 70%);
+  --zodiac-aries-gradient: linear-gradient(135deg, hsl(0, 80%, 55%), hsl(20, 90%, 50%));
+  
+  /* Taurus - Earthy Green */
+  --zodiac-taurus: hsl(140, 45%, 40%);
+  --zodiac-taurus-light: hsl(140, 45%, 60%);
+  --zodiac-taurus-gradient: linear-gradient(135deg, hsl(140, 45%, 40%), hsl(100, 40%, 45%));
+  
+  /* Gemini - Airy Yellow */
+  --zodiac-gemini: hsl(50, 90%, 55%);
+  --zodiac-gemini-light: hsl(50, 90%, 70%);
+  --zodiac-gemini-gradient: linear-gradient(135deg, hsl(50, 90%, 55%), hsl(40, 95%, 60%));
+  
+  /* Cancer - Lunar Silver */
+  --zodiac-cancer: hsl(210, 20%, 70%);
+  --zodiac-cancer-light: hsl(210, 20%, 85%);
+  --zodiac-cancer-gradient: linear-gradient(135deg, hsl(210, 20%, 70%), hsl(190, 25%, 75%));
+  
+  /* Leo - Regal Gold */
+  --zodiac-leo: hsl(40, 95%, 50%);
+  --zodiac-leo-light: hsl(40, 95%, 65%);
+  --zodiac-leo-gradient: linear-gradient(135deg, hsl(40, 95%, 50%), hsl(25, 100%, 55%));
+  
+  /* Virgo - Pure White/Beige */
+  --zodiac-virgo: hsl(45, 30%, 75%);
+  --zodiac-virgo-light: hsl(45, 30%, 88%);
+  --zodiac-virgo-gradient: linear-gradient(135deg, hsl(45, 30%, 75%), hsl(60, 25%, 80%));
+  
+  /* Libra - Soft Pink */
+  --zodiac-libra: hsl(330, 60%, 70%);
+  --zodiac-libra-light: hsl(330, 60%, 85%);
+  --zodiac-libra-gradient: linear-gradient(135deg, hsl(330, 60%, 70%), hsl(350, 55%, 75%));
+  
+  /* Scorpio - Deep Burgundy */
+  --zodiac-scorpio: hsl(340, 70%, 35%);
+  --zodiac-scorpio-light: hsl(340, 70%, 50%);
+  --zodiac-scorpio-gradient: linear-gradient(135deg, hsl(340, 70%, 35%), hsl(320, 60%, 40%));
+  
+  /* Sagittarius - Royal Purple */
+  --zodiac-sagittarius: hsl(280, 60%, 50%);
+  --zodiac-sagittarius-light: hsl(280, 60%, 65%);
+  --zodiac-sagittarius-gradient: linear-gradient(135deg, hsl(280, 60%, 50%), hsl(260, 55%, 55%));
+  
+  /* Capricorn - Charcoal/Dark Brown */
+  --zodiac-capricorn: hsl(30, 20%, 30%);
+  --zodiac-capricorn-light: hsl(30, 20%, 50%);
+  --zodiac-capricorn-gradient: linear-gradient(135deg, hsl(30, 20%, 30%), hsl(20, 25%, 35%));
+  
+  /* Aquarius - Electric Blue */
+  --zodiac-aquarius: hsl(200, 85%, 50%);
+  --zodiac-aquarius-light: hsl(200, 85%, 65%);
+  --zodiac-aquarius-gradient: linear-gradient(135deg, hsl(200, 85%, 50%), hsl(180, 80%, 45%));
+  
+  /* Pisces - Sea Green/Turquoise */
+  --zodiac-pisces: hsl(170, 60%, 45%);
+  --zodiac-pisces-light: hsl(170, 60%, 60%);
+  --zodiac-pisces-gradient: linear-gradient(135deg, hsl(170, 60%, 45%), hsl(190, 55%, 50%));
+}

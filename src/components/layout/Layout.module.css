@@ -1,0 +1,90 @@
+/* ===========================================
+   LAYOUT COMPONENT STYLES
+   =========================================== */
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Page transition wrapper */
+.pageTransition {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Skip to content link */
+.skipLink {
+    position: absolute;
+    top: -100%;
+    left: var(--space-4);
+    z-index: var(--z-tooltip);
+    padding: var(--space-2) var(--space-4);
+    background-color: var(--color-gold);
+    color: var(--color-text-inverse);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transform: translateY(-100%);
+    transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.skipLink:focus {
+    top: var(--space-4);
+    transform: translateY(0);
+}
+
+/* Starfield Background (for special pages) */
+.starfieldBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: var(--z-behind);
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: var(--color-gold);
+    border-radius: 50%;
+    opacity: 0.3;
+}
+
+/* Cart Sidebar Overlay */
+.cartSidebarOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal-backdrop);
+    background-color: var(--color-bg-overlay);
+}
+
+/* Toast Container */
+.toastContainer {
+    position: fixed;
+    bottom: var(--space-4);
+    right: var(--space-4);
+    z-index: var(--z-toast);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+@media screen and (min-width: 640px) {
+    .toastContainer {
+        bottom: var(--space-6);
+        right: var(--space-6);
+    }
+}
