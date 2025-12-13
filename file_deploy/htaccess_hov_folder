@@ -1,0 +1,11 @@
+# House of Venus - SPA fallback per tutte le rotte sotto /hov
+# Questo file va in /public_html/hov/.htaccess
+
+RewriteEngine On
+RewriteBase /hov/
+
+# Servi index.html se la risorsa non esiste come file o directory
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /hov/index.html [L]

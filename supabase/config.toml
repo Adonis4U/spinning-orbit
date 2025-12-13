@@ -1,0 +1,22 @@
+[project_id]
+# Use your Supabase project ID here
+# Get it from: https://supabase.com/dashboard/project/[your-project]/settings/general
+project_id = "btjoiriuugjqjyjdtauw"
+
+[api]
+enabled = true
+# Port to use for functions serving
+port = 54321
+
+[db]
+# Port for local database
+port = 54322
+
+[studio]
+enabled = true
+# Port for Supabase Studio
+port = 54323
+
+[functions]
+# Enable edge functions
+enabled = true

@@ -1,0 +1,88 @@
+# === Root: Pretty URL per SPA in /hov + convivenza WordPress ===
+# House of Venus - houseofvenus.pl
+# Progetto React in /public_html/hov, WordPress in root
+
+Options -MultiViews
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # 0) HTTPS sempre
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # 1) Se file o dir esiste, passa (evita di toccare asset reali e file WP)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule - - [L]
+
+  # 2) LASCIA PASSARE WordPress "core" (se presente)
+  RewriteRule ^(wp-admin|wp-includes|wp-content|wp-json)(/|$) - [L]
+  RewriteRule ^(wp-login\.php|wp-cron\.php|xmlrpc\.php)(/|$) - [L]
+
+  # 3) LASCIA PASSARE TUTTI GLI ASSET DELLA SPA House of Venus
+  RewriteRule ^hov/(assets|images|img|videos|media|fonts|static)/ - [L]
+  RewriteRule ^hov/(favicon\.(ico|png|svg)|robots\.txt|sitemap\.xml|manifest\.json|og-image\.jpg)$ - [L]
+
+  # 3.3) Assicura Content-Type corretto per immagini OG e altre immagini
+  <IfModule mod_mime.c>
+    AddType image/jpeg .jpg .jpeg
+    AddType image/png .png
+    AddType image/gif .gif
+    AddType image/webp .webp
+    AddType image/svg+xml .svg
+  </IfModule>
+
+  # 3.4) Cache per immagini e assets statici
+  <IfModule mod_headers.c>
+    <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico)$">
+      Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    <FilesMatch "\.(css|js)$">
+      Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    <FilesMatch "\.(woff|woff2|ttf|eot)$">
+      Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+  </IfModule>
+
+  # 4) Mappature per path assoluti "brevi" (opzionale)
+  # Se vuoi che /videos/... punti a /hov/videos/...
+  # RewriteRule ^videos/(.*)$ /hov/videos/$1 [L]
+  # RewriteRule ^images/(.*)$ /hov/images/$1 [L]
+  # RewriteRule ^assets/(.*)$ /hov/assets/$1 [L]
+
+  # 5) Blog WP sotto /blog/ (se lo usi)
+  RewriteRule ^blog/ - [L]
+
+  # 6) INTERCETTA CRAWLER SOCIAL MEDIA per SEO Meta Tags
+  # Per ora usiamo i meta tags statici in index.html
+  # In futuro si può aggiungere una Edge Function Supabase per meta tags dinamici
+  # Commenta questa sezione se vuoi usare solo meta tags statici
+  
+  # 7) CATCH-ALL SPA (URL belli: nessun /hov visibile all'utente)
+  # Tutti i path che non sono file/dir esistenti vanno alla SPA
+  RewriteRule ^$                 /hov/index.html [L]
+  RewriteRule ^(?!blog/).+       /hov/index.html [L]
+</IfModule>
+
+# BEGIN LSCACHE (LiteSpeed Cache - Hostinger)
+<IfModule LiteSpeed>
+RewriteEngine on
+CacheLookup on
+RewriteRule .* - [E=Cache-Control:no-autoflush]
+RewriteRule litespeed/debug/.*\.log$ - [F,L]
+RewriteRule \.litespeed_conf\.dat - [F,L]
+### marker ASYNC start ###
+RewriteCond %{REQUEST_URI} /wp-admin/admin-ajax\.php
+RewriteCond %{QUERY_STRING} action=async_litespeed
+RewriteRule .* - [E=noabort:1]
+### marker ASYNC end ###
+### marker DROPQS start ###
+CacheKeyModify -qs:fbclid
+CacheKeyModify -qs:gclid
+CacheKeyModify -qs:utm*
+CacheKeyModify -qs:_ga
+### marker DROPQS end ###
+</IfModule>
+# END LSCACHE
