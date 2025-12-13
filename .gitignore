@@ -25,10 +25,9 @@ dist-ssr
 
 # Varie
 
-.agent
-.agent\rules
-.agent\rules\rules121325.md
-docs
-*.docs
+docs/files_vecchi_progetti
+docs/files_vecchi_progetti/Ploom WebApp
+docs/planning_and_task-fino-al-13-12-25
+brain_antigravity
 CLAUDE.md
 README_OLD.md
