@@ -1,4 +1,4 @@
-# 🔮 Venus Calculator - Cronologia Completa delle Modifiche
+## 🔮 Venus Calculator - Cronologia Completa delle Modifiche
 
 > **Data Ultimo Aggiornamento:** 13 Dicembre 2024  
 > **Progetto:** House of Venus - Spinning Orbit  
