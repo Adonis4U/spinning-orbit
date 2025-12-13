@@ -13,7 +13,7 @@ import Starfield from '../../components/common/Starfield';
 import styles from './Account.module.css';
 
 export default function Login() {
-    const { t, language } = useTranslation();
+    const { language } = useTranslation();
     const navigate = useNavigate();
     const { signInWithEmail } = useAuth();
 

@@ -6,8 +6,6 @@ import {
     Instagram,
     Facebook,
     Twitter,
-    Youtube,
-    Send,
 } from 'lucide-react';
 import styles from './Footer.module.css';
 

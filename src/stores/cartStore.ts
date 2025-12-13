@@ -39,10 +39,6 @@ interface CartState {
     getItemByKey: (id: string, size?: string, color?: string) => CartItem | undefined;
 }
 
-// Helper to create unique key for cart items (product + size + color combination)
-const getCartItemKey = (id: string, size?: string, color?: string) =>
-    `${id}-${size || 'default'}-${color || 'default'}`;
-
 export const useCartStore = create<CartState>()(
     persist(
         (set, get) => ({

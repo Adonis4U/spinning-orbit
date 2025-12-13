@@ -120,7 +120,7 @@ function calculateVenusSignFallback(birthDate: Date): VenusSign {
 /**
  * Convert Julian Day to Greenwich Sidereal Time (in degrees)
  */
-function julianDayToGST(jd: number): number {
+export function julianDayToGST(jd: number): number {
     // Julian centuries from J2000.0
     const T = (jd - 2451545.0) / 36525;
 
