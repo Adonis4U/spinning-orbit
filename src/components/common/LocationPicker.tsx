@@ -108,7 +108,7 @@ export default function LocationPicker({ value, onChange, language, compact = fa
             c.code.toLowerCase().includes(countrySearch.toLowerCase());
     });
 
-    // Debounced city search
+    // Debounced city search with Google fallback
     const searchCities = useCallback(
         debounce(async (query: string, countryCode: string) => {
             if (query.length < 2) {
@@ -118,8 +118,9 @@ export default function LocationPicker({ value, onChange, language, compact = fa
 
             setCityLoading(true);
             try {
+                // Try Nominatim first (OpenStreetMap - free)
                 const countryParam = countryCode ? `&countrycodes=${countryCode}` : '';
-                const response = await fetch(
+                const nominatimResponse = await fetch(
                     `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}${countryParam}&limit=5&featuretype=city`,
                     {
                         headers: {
@@ -128,11 +129,43 @@ export default function LocationPicker({ value, onChange, language, compact = fa
                     }
                 );
 
-                if (response.ok) {
-                    const data = await response.json();
-                    setCitySuggestions(data);
-                    setCityDropdownOpen(data.length > 0);
+                if (nominatimResponse.ok) {
+                    const data = await nominatimResponse.json();
+                    if (data && data.length > 0) {
+                        setCitySuggestions(data);
+                        setCityDropdownOpen(true);
+                        return;
+                    }
                 }
+
+                // Fallback to Google Geocoding API if Nominatim fails or returns no results
+                // Note: Google API key is stored as GOOGLE_GEO_API_KEY in Supabase secrets
+                const googleApiKey = import.meta.env.VITE_GOOGLE_GEO_API_KEY;
+                if (googleApiKey) {
+                    const countryRestriction = countryCode ? `&components=country:${countryCode}` : '';
+                    const googleResponse = await fetch(
+                        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(query)}${countryRestriction}&key=${googleApiKey}`
+                    );
+
+                    if (googleResponse.ok) {
+                        const googleData = await googleResponse.json();
+                        if (googleData.results && googleData.results.length > 0) {
+                            // Convert Google format to our format
+                            const suggestions = googleData.results.slice(0, 5).map((result: { formatted_address: string; geometry: { location: { lat: number; lng: number } } }) => ({
+                                display_name: result.formatted_address,
+                                lat: String(result.geometry.location.lat),
+                                lon: String(result.geometry.location.lng),
+                                name: result.formatted_address.split(',')[0],
+                            }));
+                            setCitySuggestions(suggestions);
+                            setCityDropdownOpen(suggestions.length > 0);
+                            return;
+                        }
+                    }
+                }
+
+                // If both fail, clear suggestions
+                setCitySuggestions([]);
             } catch (error) {
                 console.error('City search error:', error);
             } finally {
@@ -223,7 +256,6 @@ export default function LocationPicker({ value, onChange, language, compact = fa
                 <label className={styles.label}>
                     <Globe size={compact ? 12 : 14} />
                     {labels.country}
-                    <span className={styles.optional}>{labels.forAscendant}</span>
                 </label>
 
                 <div className={styles.selectWrapper}>
@@ -273,6 +305,7 @@ export default function LocationPicker({ value, onChange, language, compact = fa
                 <label className={styles.label}>
                     <MapPin size={compact ? 12 : 14} />
                     {labels.city}
+                    <span className={styles.optional}>{labels.forAscendant}</span>
                 </label>
 
                 <div className={styles.inputWrapper}>
