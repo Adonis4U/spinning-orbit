@@ -23,11 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 
-# Varie
-
-docs/files_vecchi_progetti
-docs/files_vecchi_progetti/Ploom WebApp
-docs/planning_and_task-fino-al-13-12-25
+# Various
 brain_antigravity
+docs/files_vecchi_progetti
+docs/planning_and_task-fino-al-13-12-25
 CLAUDE.md
 README_OLD.md
