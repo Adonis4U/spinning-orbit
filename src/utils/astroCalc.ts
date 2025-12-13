@@ -117,23 +117,7 @@ function calculateVenusSignFallback(birthDate: Date): VenusSign {
     return longitudeToZodiacSign(longitude);
 }
 
-/**
- * Convert Julian Day to Greenwich Sidereal Time (in degrees)
- */
-function julianDayToGST(jd: number): number {
-    // Julian centuries from J2000.0
-    const T = (jd - 2451545.0) / 36525;
 
-    // Mean sidereal time at Greenwich (in degrees)
-    // IAU 1982 model
-    let gst = 280.46061837
-        + 360.98564736629 * (jd - 2451545.0)
-        + 0.000387933 * T * T
-        - T * T * T / 38710000;
-
-    // Normalize to 0-360
-    return ((gst % 360) + 360) % 360;
-}
 
 /**
  * Convert Date to Julian Day Number

@@ -115,7 +115,7 @@ export interface Product {
     updated_at: string;
 }
 
-export interface ProductSize {
+export interface ProductSizeVariant {
     size: string;
     in_stock: boolean;
     quantity?: number;

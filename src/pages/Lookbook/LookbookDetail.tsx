@@ -57,7 +57,7 @@ export default function LookbookDetail() {
                 <title>{language === 'en' ? lookbook.title_en : lookbook.title_pl} | House of Venus</title>
                 <meta
                     name="description"
-                    content={language === 'en' ? lookbook.description_en : lookbook.description_pl}
+                    content={(language === 'en' ? lookbook.description_en : lookbook.description_pl) || undefined}
                 />
             </Helmet>
 

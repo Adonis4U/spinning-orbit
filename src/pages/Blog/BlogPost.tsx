@@ -101,7 +101,7 @@ export default function BlogPost() {
                 <title>{language === 'en' ? post.title_en : post.title_pl} | House of Venus</title>
                 <meta
                     name="description"
-                    content={language === 'en' ? post.excerpt_en : post.excerpt_pl}
+                    content={(language === 'en' ? post.excerpt_en : post.excerpt_pl) || undefined}
                 />
                 <meta property="og:title" content={language === 'en' ? post.title_en : post.title_pl} />
                 <meta property="og:image" content={post.cover_image ?? undefined} />

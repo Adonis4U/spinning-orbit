@@ -56,7 +56,7 @@ export default function CollectionDetail() {
                 <title>{language === 'en' ? collection.name_en : collection.name_pl} | House of Venus</title>
                 <meta
                     name="description"
-                    content={language === 'en' ? collection.description_en : collection.description_pl}
+                    content={(language === 'en' ? collection.description_en : collection.description_pl) || undefined}
                 />
             </Helmet>
 

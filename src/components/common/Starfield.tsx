@@ -3,7 +3,7 @@
    Animated cosmic stars background
    =========================================== */
 
-import { useEffect, useRef, useMemo } from 'react';
+import { useRef, useMemo } from 'react';
 import styles from './Starfield.module.css';
 
 interface Star {
