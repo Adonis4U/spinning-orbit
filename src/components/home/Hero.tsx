@@ -3,7 +3,7 @@
    Two-column layout: Text left, Calculator right
    =========================================== */
 
-import { motion, type Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { useTranslation } from '../../contexts';
@@ -15,7 +15,7 @@ export default function Hero() {
     const { language } = useTranslation();
 
     // Staggered animation for hero elements
-    const containerVariants: Variants = {
+    const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
@@ -26,16 +26,16 @@ export default function Hero() {
         },
     };
 
-    const itemVariants: Variants = {
+    const itemVariants = {
         hidden: { opacity: 0, y: 30 },
         visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as any },
+            transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
         },
     };
 
-    const calculatorVariants: Variants = {
+    const calculatorVariants = {
         hidden: { opacity: 0, x: 60, scale: 0.95 },
         visible: {
             opacity: 1,
@@ -43,7 +43,7 @@ export default function Hero() {
             scale: 1,
             transition: {
                 duration: 1,
-                ease: [0.22, 1, 0.36, 1] as any,
+                ease: [0.22, 1, 0.36, 1] as const,
                 delay: 0.4
             },
         },

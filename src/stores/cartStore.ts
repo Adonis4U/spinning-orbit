@@ -39,8 +39,6 @@ interface CartState {
     getItemByKey: (id: string, size?: string, color?: string) => CartItem | undefined;
 }
 
-
-
 export const useCartStore = create<CartState>()(
     persist(
         (set, get) => ({

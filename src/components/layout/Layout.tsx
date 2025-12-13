@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { motion, AnimatePresence, type Variants } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
@@ -14,7 +14,7 @@ interface LayoutProps {
 }
 
 // Page transition variants
-const pageTransitionVariants: Variants = {
+const pageTransitionVariants = {
     initial: {
         opacity: 0,
         y: 10,
@@ -24,7 +24,7 @@ const pageTransitionVariants: Variants = {
         y: 0,
         transition: {
             duration: 0.4,
-            ease: [0.25, 0.1, 0.25, 1] as any,
+            ease: [0.25, 0.1, 0.25, 1] as const,
         },
     },
     exit: {
@@ -32,7 +32,7 @@ const pageTransitionVariants: Variants = {
         y: -10,
         transition: {
             duration: 0.3,
-            ease: [0.25, 0.1, 0.25, 1] as any,
+            ease: [0.25, 0.1, 0.25, 1] as const,
         },
     },
 };

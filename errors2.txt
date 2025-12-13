@@ -1,0 +1,7 @@
+﻿src/pages/Blog/BlogPost.tsx(104,21): error TS2322: Type 'string | null' is not assignable to type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+src/pages/Collections/CollectionDetail.tsx(59,21): error TS2322: Type 'string | null' is not assignable to type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+src/pages/Lookbook/LookbookDetail.tsx(60,21): error TS2322: Type 'string | null' is not assignable to type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+src/stores/cartStore.ts(44,7): error TS6133: '_getCartItemKey' is declared but its value is never read.
