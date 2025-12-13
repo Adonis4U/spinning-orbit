@@ -9,6 +9,7 @@ import type { VenusSign, VenusProfile } from '../types/domain';
 interface VenusProfileContextType {
     profile: VenusProfile;
     setVenusSign: (sign: VenusSign) => void;
+    setAscendingSign: (sign: VenusSign | null) => void;
     setSunSign: (sign: VenusSign | null) => void;
     setRisingSign: (sign: VenusSign | null) => void;
     updateProfile: (data: Partial<VenusProfile>) => void;
@@ -22,11 +23,14 @@ const STORAGE_KEY = 'hov-venus-profile';
 
 const DEFAULT_PROFILE: VenusProfile = {
     venusSign: null,
+    ascendingSign: null,
     sunSign: null,
     risingSign: null,
     dateOfBirth: undefined,
     timeOfBirth: undefined,
     placeOfBirth: undefined,
+    latitude: undefined,
+    longitude: undefined,
     lastCalculatedAt: undefined,
 };
 
@@ -75,6 +79,13 @@ export function VenusProfileProvider({ children }: VenusProfileProviderProps) {
         }));
     };
 
+    const setAscendingSign = (sign: VenusSign | null) => {
+        setProfile(prev => ({
+            ...prev,
+            ascendingSign: sign,
+        }));
+    };
+
     const setRisingSign = (sign: VenusSign | null) => {
         setProfile(prev => ({
             ...prev,
@@ -101,6 +112,7 @@ export function VenusProfileProvider({ children }: VenusProfileProviderProps) {
             value={{
                 profile,
                 setVenusSign,
+                setAscendingSign,
                 setSunSign,
                 setRisingSign,
                 updateProfile,

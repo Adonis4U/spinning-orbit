@@ -11,7 +11,9 @@ import {
     Sun,
     Moon,
     Sparkles,
+    LayoutDashboard,
 } from 'lucide-react';
+import { useAuth } from '../../contexts';
 import styles from './Header.module.css';
 
 // Navigation links configuration
@@ -42,6 +44,7 @@ export default function Header({
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const location = useLocation();
+    const { isAdmin, isAuthenticated } = useAuth();
 
     // Handle scroll effect
     useEffect(() => {
@@ -147,10 +150,26 @@ export default function Header({
                         <Heart />
                     </Link>
 
-                    {/* Account */}
-                    <Link to="/account" className={styles.iconButton} aria-label="Account">
+                    {/* Account - redirects to login if not authenticated */}
+                    <Link
+                        to={isAuthenticated ? "/account" : "/account/login"}
+                        className={styles.iconButton}
+                        aria-label="Account"
+                    >
                         <User />
                     </Link>
+
+                    {/* Admin Dashboard - only for authenticated admins */}
+                    {isAuthenticated && isAdmin && (
+                        <Link
+                            to="/admin"
+                            className={styles.iconButton}
+                            aria-label="Admin Dashboard"
+                            style={{ color: 'var(--color-gold)' }}
+                        >
+                            <LayoutDashboard />
+                        </Link>
+                    )}
 
                     {/* Cart */}
                     <Link to="/cart" className={styles.iconButton} aria-label="Shopping cart">

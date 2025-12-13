@@ -7,66 +7,135 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Sparkles, Calendar, Clock, MapPin, ArrowRight,
-    RotateCcw, Heart, Shirt, Palette, Star, ShoppingBag
+    Sparkles, Calendar, Clock, ArrowRight,
+    RotateCcw, Heart, Shirt, Palette, Star, ShoppingBag, Sunrise, AlertCircle
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation, useVenusProfile } from '../../contexts';
 import { ZODIAC_SIGNS } from '../../constants/zodiac';
 import { getVenusSignData, VENUS_SIGN_DATA } from '../../data/venusData';
-import { getProductsByVenusSign, PRODUCTS } from '../../data/products';
-import { calculateVenusSign, getVenusMatches } from '../../utils/venusMath';
+import { getAscendantSignData } from '../../data/ascendantData';
+import { useProducts } from '../../hooks';
+import { getVenusMatches } from '../../utils/venusMath';
+import { calculateVenusSign, calculateAscendant } from '../../utils/astroCalc';
+import type { VenusSign } from '../../types/domain';
 import Starfield from '../../components/common/Starfield';
 import ProductCard from '../../components/product/ProductCard';
+import LocationPicker, { type LocationPickerValue } from '../../components/common/LocationPicker';
 import styles from './VenusCalculator.module.css';
 
 export default function VenusCalculator() {
     const { t, language } = useTranslation();
-    const { venusSign: savedSign, setVenusSign } = useVenusProfile();
-    const [birthDate, setBirthDate] = useState('');
-    const [birthTime, setBirthTime] = useState('');
-    const [birthPlace, setBirthPlace] = useState('');
+    const { profile, setVenusSign, setAscendingSign, updateProfile } = useVenusProfile();
+    const savedSign = profile.venusSign;
+    const savedAscendant = profile.ascendingSign;
+
+    const [birthDate, setBirthDate] = useState(profile.dateOfBirth || '');
+    const [birthTime, setBirthTime] = useState(profile.timeOfBirth || '');
+
+    // Location state using LocationPicker value structure
+    const [location, setLocation] = useState<LocationPickerValue>({
+        country: '',
+        countryCode: '',
+        city: profile.placeOfBirth || '',
+        lat: profile.latitude ?? null,
+        lon: profile.longitude ?? null,
+    });
+
     const [result, setResult] = useState<string | null>(savedSign || null);
+    const [ascendantResult, setAscendantResult] = useState<VenusSign | null>(savedAscendant || null);
     const [isCalculating, setIsCalculating] = useState(false);
     const [showFullGuide, setShowFullGuide] = useState(!!savedSign);
+    const [formError, setFormError] = useState<string | null>(null);
 
     const handleCalculate = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!birthDate) return;
+        setFormError(null);
+
+        // Validation: Date and Time are always required
+        if (!birthDate) {
+            setFormError(language === 'en' ? 'Please enter your birth date' : 'Proszę podać datę urodzenia');
+            return;
+        }
+
+        if (!birthTime) {
+            setFormError(language === 'en' ? 'Birth time is required for accurate Venus sign calculation' : 'Godzina urodzenia jest wymagana do dokładnego obliczenia znaku Wenus');
+            return;
+        }
 
         setIsCalculating(true);
 
-        // Simulate calculation for dramatic effect
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        try {
+            // Calculate Venus sign using ephemeris
+            const venusSign = calculateVenusSign(new Date(birthDate), birthTime);
+            setResult(venusSign);
+            setVenusSign(venusSign);
 
-        const venusSign = calculateVenusSign(new Date(birthDate));
-        setResult(venusSign);
-        setVenusSign(venusSign);
-        setIsCalculating(false);
+            // Construct place string for profile
+            const placeString = location.city && location.country
+                ? `${location.city}, ${location.country}`
+                : location.city || '';
 
-        // Show full guide after a brief moment
-        setTimeout(() => setShowFullGuide(true), 800);
+            // Update profile with birth data
+            updateProfile({
+                dateOfBirth: birthDate,
+                timeOfBirth: birthTime,
+                placeOfBirth: placeString || undefined,
+            });
+
+            // Calculate Ascendant if we have coordinates
+            if (location.lat !== null && location.lon !== null) {
+                const ascendant = calculateAscendant(new Date(birthDate), birthTime, location.lat, location.lon);
+                setAscendantResult(ascendant);
+                setAscendingSign(ascendant);
+                updateProfile({
+                    latitude: location.lat,
+                    longitude: location.lon,
+                });
+            } else {
+                setAscendantResult(null);
+            }
+
+            // Show full guide after a brief moment
+            setTimeout(() => setShowFullGuide(true), 800);
+        } catch (error) {
+            console.error('Calculation error:', error);
+            setFormError(language === 'en' ? 'An error occurred during calculation' : 'Wystąpił błąd podczas obliczeń');
+        } finally {
+            setIsCalculating(false);
+        }
     };
 
     const handleReset = () => {
         setResult(null);
+        setAscendantResult(null);
         setShowFullGuide(false);
         setBirthDate('');
         setBirthTime('');
-        setBirthPlace('');
+        setLocation({
+            country: '',
+            countryCode: '',
+            city: '',
+            lat: null,
+            lon: null,
+        });
+        setFormError(null);
     };
 
     const signData = result ? getVenusSignData(result as keyof typeof VENUS_SIGN_DATA) : null;
     const zodiacData = result ? ZODIAC_SIGNS[result as keyof typeof ZODIAC_SIGNS] : null;
     const matches = result ? getVenusMatches(result as keyof typeof VENUS_SIGN_DATA) : [];
 
-    // Get products for this Venus sign, fallback to random products if none match
-    const signProducts = result
-        ? getProductsByVenusSign(result)
-        : [];
-    const recommendedProducts = signProducts.length > 0
-        ? signProducts.slice(0, 4)
-        : PRODUCTS.slice(0, 4);
+    // Ascendant data
+    const ascendantSignData = ascendantResult ? getAscendantSignData(ascendantResult) : null;
+    const ascendantZodiacData = ascendantResult ? ZODIAC_SIGNS[ascendantResult as keyof typeof ZODIAC_SIGNS] : null;
+
+    // Get products from Supabase filtered by Venus sign
+    const { products: allProducts } = useProducts({ venusSign: result || undefined });
+    const { products: fallbackProducts } = useProducts({ limit: 4 });
+
+    // Use venus sign products or fallback
+    const recommendedProducts = (allProducts.length > 0 ? allProducts : fallbackProducts).slice(0, 4);
 
     return (
         <>
@@ -127,6 +196,13 @@ export default function VenusCalculator() {
                                             }
                                         </p>
 
+                                        {formError && (
+                                            <div className={styles.formError}>
+                                                <AlertCircle size={16} />
+                                                {formError}
+                                            </div>
+                                        )}
+
                                         <form onSubmit={handleCalculate} className={styles.form}>
                                             <div className={styles.inputGroup}>
                                                 <label className={styles.label}>
@@ -146,41 +222,34 @@ export default function VenusCalculator() {
                                                 <label className={styles.label}>
                                                     <Clock size={16} />
                                                     {language === 'en' ? 'Time of Birth' : 'Godzina Urodzenia'}
-                                                    <span className={styles.optional}>({language === 'en' ? 'optional' : 'opcjonalne'})</span>
+                                                    <span className={styles.required}>*</span>
                                                 </label>
                                                 <input
                                                     type="time"
                                                     value={birthTime}
                                                     onChange={(e) => setBirthTime(e.target.value)}
                                                     className={styles.input}
+                                                    required
                                                 />
                                                 <span className={styles.hint}>
                                                     {language === 'en'
-                                                        ? "Don't know your time? We'll still give you accurate results"
-                                                        : 'Nie znasz godziny? Nadal damy Ci dokładne wyniki'
+                                                        ? 'Required for accurate Venus sign calculation'
+                                                        : 'Wymagane do dokładnego obliczenia znaku Wenus'
                                                     }
                                                 </span>
                                             </div>
 
-                                            <div className={styles.inputGroup}>
-                                                <label className={styles.label}>
-                                                    <MapPin size={16} />
-                                                    {language === 'en' ? 'Place of Birth' : 'Miejsce Urodzenia'}
-                                                    <span className={styles.optional}>({language === 'en' ? 'optional' : 'opcjonalne'})</span>
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    value={birthPlace}
-                                                    onChange={(e) => setBirthPlace(e.target.value)}
-                                                    placeholder={language === 'en' ? 'City, Country' : 'Miasto, Kraj'}
-                                                    className={styles.input}
-                                                />
-                                            </div>
+                                            {/* Location Picker for Country/City */}
+                                            <LocationPicker
+                                                value={location}
+                                                onChange={setLocation}
+                                                language={language as 'en' | 'pl'}
+                                            />
 
                                             <motion.button
                                                 type="submit"
                                                 className={styles.submitButton}
-                                                disabled={!birthDate || isCalculating}
+                                                disabled={!birthDate || !birthTime || isCalculating}
                                                 whileHover={{ scale: 1.02 }}
                                                 whileTap={{ scale: 0.98 }}
                                             >
@@ -259,6 +328,49 @@ export default function VenusCalculator() {
                                             "{language === 'en' ? signData?.title.en : signData?.title.pl}"
                                         </p>
                                     </motion.div>
+
+                                    {/* Ascendant Result (if calculated) */}
+                                    {ascendantResult && ascendantSignData && ascendantZodiacData && (
+                                        <motion.div
+                                            className={styles.ascendantCard}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.3 }}
+                                        >
+                                            <div className={styles.ascendantHeader}>
+                                                <Sunrise size={20} className={styles.ascendantIcon} />
+                                                <h3 className={styles.ascendantLabel}>
+                                                    {language === 'en' ? 'Your Ascendant' : 'Twój Ascendent'}
+                                                </h3>
+                                            </div>
+                                            <div className={styles.ascendantContent}>
+                                                <div className={styles.ascendantSymbol}>
+                                                    {ascendantZodiacData.symbol}
+                                                </div>
+                                                <div className={styles.ascendantInfo}>
+                                                    <h4 className={styles.ascendantName}>
+                                                        {language === 'en' ? ascendantSignData.name.en : ascendantSignData.name.pl}
+                                                    </h4>
+                                                    <p className={styles.ascendantTitle}>
+                                                        {language === 'en' ? ascendantSignData.title.en : ascendantSignData.title.pl}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <p className={styles.ascendantDescription}>
+                                                {language === 'en' ? ascendantSignData.description.en : ascendantSignData.description.pl}
+                                            </p>
+                                            <div className={styles.ascendantVibe}>
+                                                <span className={styles.vibeLabel}>
+                                                    {language === 'en' ? 'Your Style Vibe:' : 'Twój Styl Vibes:'}
+                                                </span>
+                                                <div className={styles.vibeKeywords}>
+                                                    {(language === 'en' ? ascendantSignData.styleVibe.en : ascendantSignData.styleVibe.pl).map((vibe, i) => (
+                                                        <span key={i} className={styles.vibeTag}>{vibe}</span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    )}
 
                                     {/* Animated sections */}
                                     <AnimatePresence>
@@ -483,17 +595,17 @@ export default function VenusCalculator() {
                                                             >
                                                                 <ProductCard
                                                                     id={product.id}
-                                                                    name={product.name}
-                                                                    namePl={product.namePl}
-                                                                    price={product.price}
-                                                                    originalPrice={product.originalPrice}
-                                                                    images={product.images}
-                                                                    category={language === 'en' ? product.category : product.categoryPl}
-                                                                    venusSign={product.venusSign}
-                                                                    isNew={product.isNew}
-                                                                    isSale={!!product.originalPrice}
-                                                                    rating={product.rating}
-                                                                    reviewCount={product.reviewCount}
+                                                                    name={product.name_en || product.name_pl || 'Product'}
+                                                                    namePl={product.name_pl ?? undefined}
+                                                                    price={product.price_pln ?? 0}
+                                                                    originalPrice={product.original_price_pln ?? undefined}
+                                                                    images={product.images ?? undefined}
+                                                                    category={language === 'en' ? (product.category ?? undefined) : (product.category_pl ?? undefined)}
+                                                                    venusSign={product.venus_sign ?? undefined}
+                                                                    isNew={product.is_new ?? undefined}
+                                                                    isSale={!!product.original_price_pln}
+                                                                    rating={product.rating ?? undefined}
+                                                                    reviewCount={product.review_count ?? undefined}
                                                                 />
                                                             </motion.div>
                                                         ))}

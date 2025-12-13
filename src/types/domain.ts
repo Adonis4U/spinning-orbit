@@ -49,11 +49,14 @@ export interface ZodiacSignInfo {
 
 export interface VenusProfile {
     venusSign: VenusSign | null;
+    ascendingSign?: VenusSign | null;  // Ascendant/Rising sign
     sunSign?: VenusSign | null;
     risingSign?: VenusSign | null;
     dateOfBirth?: string;
     timeOfBirth?: string;
     placeOfBirth?: string;
+    latitude?: number;
+    longitude?: number;
     lastCalculatedAt?: string;
 }
 
@@ -213,6 +216,7 @@ export interface User {
     avatar_url?: string;
     preferred_language: 'en' | 'pl';
     venus_profile?: VenusProfile;
+    is_admin?: boolean;
     created_at: string;
     updated_at: string;
 }

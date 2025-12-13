@@ -215,6 +215,48 @@
     margin: 0;
 }
 
+/* Required indicator */
+.required {
+    color: #e53935;
+    margin-left: var(--space-1);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Form Error */
+.formError {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-xs);
+    color: #e53935;
+    background: hsla(4, 90%, 58%, 0.1);
+    border: 1px solid hsla(4, 90%, 58%, 0.3);
+    border-radius: var(--radius-md);
+}
+
+/* Ascendant Mini Display */
+.ascendantMini {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: hsla(280, 60%, 50%, 0.1);
+    border: 1px solid hsla(280, 60%, 50%, 0.2);
+    border-radius: var(--radius-full);
+}
+
+.ascendantIcon {
+    color: hsla(280, 60%, 50%, 1);
+}
+
+.ascendantText {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: hsla(280, 50%, 40%, 1);
+}
+
 /* Keywords */
 .keywords {
     display: flex;

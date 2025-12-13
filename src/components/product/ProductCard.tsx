@@ -11,6 +11,7 @@ import { useTranslation } from '../../contexts';
 import { ZODIAC_SIGNS } from '../../constants/zodiac';
 import { ZodiacIcon } from '../common';
 import { useCartStore, useWishlistStore, useIsInWishlist } from '../../stores';
+import QuickViewModal from './QuickViewModal';
 import styles from './ProductCard.module.css';
 
 export interface ProductCardProps {
@@ -47,6 +48,7 @@ export default function ProductCard({
     const { language } = useTranslation();
     const [isHovered, setIsHovered] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
     // Store hooks
     const addToCart = useCartStore((state) => state.addItem);
@@ -84,7 +86,7 @@ export default function ProductCard({
     const handleQuickView = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log('Quick view:', id);
+        setIsQuickViewOpen(true);
     };
 
     const handleAddToCart = (e: React.MouseEvent) => {
@@ -216,16 +218,37 @@ export default function ProductCard({
 
                     <div className={styles.priceContainer}>
                         <span className={`${styles.price} ${originalPrice ? styles.salePrice : ''}`}>
-                            {price.toFixed(0)} {currencySymbol}
+                            {(price ?? 0).toFixed(0)} {currencySymbol}
                         </span>
                         {originalPrice && (
                             <span className={styles.originalPrice}>
-                                {originalPrice.toFixed(0)} {currencySymbol}
+                                {(originalPrice ?? 0).toFixed(0)} {currencySymbol}
                             </span>
                         )}
                     </div>
                 </div>
             </Link>
+
+            {/* Quick View Modal */}
+            <QuickViewModal
+                isOpen={isQuickViewOpen}
+                onClose={() => setIsQuickViewOpen(false)}
+                product={{
+                    id,
+                    name,
+                    namePl,
+                    price,
+                    originalPrice,
+                    currency,
+                    images: safeImages.length > 0 ? safeImages : [currentImage],
+                    category,
+                    venusSign,
+                    isNew,
+                    isSale,
+                    rating,
+                    reviewCount,
+                }}
+            />
         </motion.article>
     );
 }

@@ -5,54 +5,97 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Calendar, Clock, MapPin, ArrowRight, RotateCcw } from 'lucide-react';
+import { Sparkles, Calendar, Clock, RotateCcw, Sunrise, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation, useVenusProfile } from '../../contexts';
 import { ZODIAC_SIGNS } from '../../constants/zodiac';
-import { calculateVenusSign, getVenusStyleKeywords, getVenusMatches, getVenusColors } from '../../utils/venusMath';
+import { getVenusStyleKeywords, getVenusMatches, getVenusColors } from '../../utils/venusMath';
+import { calculateVenusSign, calculateAscendant } from '../../utils/astroCalc';
+import type { VenusSign } from '../../types/domain';
+import LocationPicker, { type LocationPickerValue } from '../common/LocationPicker';
 import styles from './MiniVenusCalculator.module.css';
 
 export default function MiniVenusCalculator() {
     const { language } = useTranslation();
-    const { setVenusSign } = useVenusProfile();
+    const { setVenusSign, setAscendingSign } = useVenusProfile();
     const [birthDate, setBirthDate] = useState('');
     const [birthTime, setBirthTime] = useState('');
-    const [birthPlace, setBirthPlace] = useState('');
+
+    // Location state using LocationPicker
+    const [location, setLocation] = useState<LocationPickerValue>({
+        country: '',
+        countryCode: '',
+        city: '',
+        lat: null,
+        lon: null,
+    });
+
     const [result, setResult] = useState<{
-        sign: string;
+        sign: VenusSign;
+        ascendant: VenusSign | null;
         keywords: string[];
         matches: string[];
         colors: string[];
     } | null>(null);
     const [isCalculating, setIsCalculating] = useState(false);
+    const [formError, setFormError] = useState<string | null>(null);
 
     const handleCalculate = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!birthDate) return;
+        setFormError(null);
+
+        if (!birthDate) {
+            setFormError(language === 'en' ? 'Please enter birth date' : 'Proszę podać datę urodzenia');
+            return;
+        }
+
+        if (!birthTime) {
+            setFormError(language === 'en' ? 'Birth time is required' : 'Godzina urodzenia jest wymagana');
+            return;
+        }
 
         setIsCalculating(true);
 
-        // Simulate calculation delay for visual effect
-        await new Promise(resolve => setTimeout(resolve, 1200));
+        try {
+            // Calculate Venus sign using ephemeris
+            const venusSign = calculateVenusSign(new Date(birthDate), birthTime);
+            const keywords = getVenusStyleKeywords(venusSign, language);
+            const matches = getVenusMatches(venusSign);
+            const colors = getVenusColors(venusSign);
 
-        const venusSign = calculateVenusSign(new Date(birthDate));
-        const keywords = getVenusStyleKeywords(venusSign, language);
-        const matches = getVenusMatches(venusSign);
-        const colors = getVenusColors(venusSign);
+            // Calculate Ascendant if we have coordinates
+            let ascendant: VenusSign | null = null;
+            if (location.lat !== null && location.lon !== null) {
+                ascendant = calculateAscendant(new Date(birthDate), birthTime, location.lat, location.lon);
+                setAscendingSign(ascendant);
+            }
 
-        setResult({ sign: venusSign, keywords, matches, colors });
-        setVenusSign(venusSign);
-        setIsCalculating(false);
+            setResult({ sign: venusSign, ascendant, keywords, matches, colors });
+            setVenusSign(venusSign);
+        } catch (error) {
+            console.error('Calculation error:', error);
+            setFormError(language === 'en' ? 'Calculation error' : 'Błąd obliczenia');
+        } finally {
+            setIsCalculating(false);
+        }
     };
 
     const handleReset = () => {
         setResult(null);
         setBirthDate('');
         setBirthTime('');
-        setBirthPlace('');
+        setLocation({
+            country: '',
+            countryCode: '',
+            city: '',
+            lat: null,
+            lon: null,
+        });
+        setFormError(null);
     };
 
     const signData = result ? ZODIAC_SIGNS[result.sign as keyof typeof ZODIAC_SIGNS] : null;
+    const ascendantZodiacData = result?.ascendant ? ZODIAC_SIGNS[result.ascendant as keyof typeof ZODIAC_SIGNS] : null;
 
     return (
         <motion.div
@@ -108,6 +151,7 @@ export default function MiniVenusCalculator() {
                             <label className={styles.label}>
                                 <Clock size={14} />
                                 {language === 'en' ? 'Time of Birth' : 'Godzina Urodzenia'}
+                                <span className={styles.required}>*</span>
                             </label>
                             <div className={styles.inputWrapper}>
                                 <input
@@ -116,39 +160,38 @@ export default function MiniVenusCalculator() {
                                     onChange={(e) => setBirthTime(e.target.value)}
                                     className={styles.input}
                                     placeholder="--:--"
+                                    required
                                 />
                             </div>
                             <span className={styles.inputHint}>
                                 {language === 'en'
-                                    ? "If you don't know the time, we'll still give you tips"
-                                    : 'Jeśli nie znasz godziny urodzenia, nadal damy Ci wskazówki'
+                                    ? 'Required for accurate Venus sign'
+                                    : 'Wymagane do dokładnego znaku Wenus'
                                 }
                             </span>
                         </div>
 
-                        {/* Place of Birth */}
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>
-                                <MapPin size={14} />
-                                {language === 'en' ? 'Place of Birth' : 'Miejsce Urodzenia'}
-                            </label>
-                            <div className={styles.inputWrapper}>
-                                <input
-                                    type="text"
-                                    value={birthPlace}
-                                    onChange={(e) => setBirthPlace(e.target.value)}
-                                    placeholder={language === 'en' ? 'City, Country' : 'Miasto, Kraj'}
-                                    className={styles.input}
-                                />
-                                <MapPin size={16} className={styles.inputIcon} />
+                        {/* Location Picker */}
+                        <LocationPicker
+                            value={location}
+                            onChange={setLocation}
+                            language={language as 'en' | 'pl'}
+                            compact
+                        />
+
+                        {/* Form Error */}
+                        {formError && (
+                            <div className={styles.formError}>
+                                <AlertCircle size={14} />
+                                {formError}
                             </div>
-                        </div>
+                        )}
 
                         {/* Submit */}
                         <motion.button
                             type="submit"
                             className={styles.submitButton}
-                            disabled={!birthDate || isCalculating}
+                            disabled={!birthDate || !birthTime || isCalculating}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                         >
@@ -207,6 +250,21 @@ export default function MiniVenusCalculator() {
                                 : `Wenus w znaku ${signData?.name_pl}`
                             }
                         </motion.h3>
+
+                        {/* Ascendant Display */}
+                        {result.ascendant && ascendantZodiacData && (
+                            <motion.div
+                                className={styles.ascendantMini}
+                                initial={{ y: 10, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.25 }}
+                            >
+                                <Sunrise size={14} className={styles.ascendantIcon} />
+                                <span className={styles.ascendantText}>
+                                    {language === 'en' ? 'Rising:' : 'Ascendent:'} {ascendantZodiacData.symbol} {language === 'en' ? ascendantZodiacData.name_en : ascendantZodiacData.name_pl}
+                                </span>
+                            </motion.div>
+                        )}
 
                         {/* Style Keywords */}
                         <motion.div

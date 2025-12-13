@@ -18,12 +18,16 @@ interface SupabaseUser {
     };
 }
 
+// Admin email(s) - you can add more emails here
+const ADMIN_EMAILS = ['adonis.gagliardi@gmail.com'];
+
 interface AuthContextType {
     user: User | null;
     isLoading: boolean;
     isAuthenticated: boolean;
+    isAdmin: boolean;
     signInWithEmail: (email: string, password: string) => Promise<{ error: Error | null }>;
-    signUpWithEmail: (email: string, password: string, metadata?: { first_name?: string; last_name?: string }) => Promise<{ error: Error | null }>;
+    signUpWithEmail: (email: string, password: string, metadata?: { first_name?: string; last_name?: string }) => Promise<{ data: { session: unknown } | null; error: Error | null }>;
     signOut: () => Promise<void>;
     updateUserProfile: (data: Partial<User>) => Promise<{ error: Error | null }>;
 }
@@ -103,7 +107,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         metadata?: { first_name?: string; last_name?: string }
     ) => {
         try {
-            const { error } = await supabase.auth.signUp({
+            const { data, error } = await supabase.auth.signUp({
                 email,
                 password,
                 options: {
@@ -112,12 +116,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
             });
 
             if (error) {
-                return { error: new Error(error.message) };
+                return { data: null, error: new Error(error.message) };
             }
 
-            return { error: null };
+            return { data, error: null };
         } catch (error) {
-            return { error: error as Error };
+            return { data: null, error: error as Error };
         }
     };
 
@@ -159,6 +163,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 user,
                 isLoading,
                 isAuthenticated: !!user,
+                isAdmin: !!user && ADMIN_EMAILS.includes(user.email.toLowerCase()),
                 signInWithEmail,
                 signUpWithEmail,
                 signOut,

@@ -139,6 +139,25 @@
     margin-left: var(--space-1);
 }
 
+.required {
+    color: #e53935;
+    margin-left: var(--space-1);
+    font-weight: var(--font-weight-bold);
+}
+
+.formError {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-4);
+    font-size: var(--font-size-sm);
+    color: #e53935;
+    background: hsla(4, 90%, 58%, 0.1);
+    border: 1px solid hsla(4, 90%, 58%, 0.3);
+    border-radius: var(--radius-lg);
+}
+
 .input {
     padding: var(--space-3) var(--space-4);
     font-size: var(--font-size-base);
@@ -621,6 +640,115 @@
 .viewAllButton:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px hsla(43, 96%, 56%, 0.4);
+}
+
+/* Ascendant Card */
+.ascendantCard {
+    padding: var(--space-6);
+    background: linear-gradient(135deg,
+            hsla(280, 60%, 50%, 0.1) 0%,
+            hsla(200, 60%, 50%, 0.05) 100%);
+    border: 1px solid hsla(280, 60%, 50%, 0.2);
+    border-radius: var(--radius-xl);
+    margin-bottom: var(--space-6);
+}
+
+.ascendantHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+}
+
+.ascendantIcon {
+    color: hsla(280, 60%, 60%, 1);
+}
+
+.ascendantLabel {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wider);
+    margin: 0;
+}
+
+.ascendantContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+}
+
+.ascendantSymbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+    background: linear-gradient(135deg, hsla(280, 60%, 50%, 0.8), hsla(200, 60%, 50%, 0.8));
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 16px hsla(280, 60%, 50%, 0.3);
+}
+
+.ascendantInfo {
+    text-align: left;
+}
+
+.ascendantName {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-1);
+}
+
+.ascendantTitle {
+    font-size: var(--font-size-sm);
+    font-style: italic;
+    color: hsla(280, 60%, 60%, 1);
+    margin: 0;
+}
+
+.ascendantDescription {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    text-align: center;
+    margin: 0 0 var(--space-4);
+}
+
+.ascendantVibe {
+    text-align: center;
+}
+
+.vibeLabel {
+    display: block;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-tertiary);
+    margin-bottom: var(--space-2);
+}
+
+.vibeKeywords {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2);
+}
+
+.vibeTag {
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: hsla(280, 60%, 60%, 1);
+    background: hsla(280, 60%, 50%, 0.1);
+    border: 1px solid hsla(280, 60%, 50%, 0.2);
+    border-radius: var(--radius-full);
 }
 
 /* Responsive */
