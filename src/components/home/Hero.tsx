@@ -6,7 +6,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '../../contexts';
-import Starfield from '../common/Starfield';
+// import Starfield from '../common/Starfield'; // Temporarily disabled
 import MiniVenusCalculator from './MiniVenusCalculator';
 import styles from './Hero.module.css';
 
@@ -44,14 +44,36 @@ export default function Hero() {
 
     return (
         <section className={styles.hero}>
-            {/* Background image overlay */}
-            <div className={styles.backgroundImage} />
+            {/* Background Video - Optimized for performance */}
+            <div className={styles.backgroundVideo}>
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    poster="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=1920&q=80"
+                    // Performance optimizations
+                    disablePictureInPicture
+                    controlsList="nodownload nofullscreen noremoteplayback"
+                >
+                    {/* 
+                        IMPORTANT: For best performance, compress your video:
+                        - Use H.264 codec
+                        - Target bitrate: 2-3 Mbps for 1080p
+                        - Resolution: 1920x1080 or lower
+                        - Duration: Keep it short (15-30 seconds loop)
+                        - Use tools like HandBrake or FFmpeg to compress
+                    */}
+                    <source src="/videos/hero-background.mp4" type="video/mp4" />
+                </video>
+            </div>
 
             {/* Gradient overlay */}
             <div className={styles.gradientOverlay} />
 
-            {/* Animated starfield (subtle) */}
-            <Starfield starCount={80} className={styles.starfield} />
+            {/* Animated starfield (subtle) - Temporarily disabled */}
+            {/* <Starfield starCount={80} className={styles.starfield} /> */}
 
             {/* Main content - centered */}
             <div className={styles.container}>
