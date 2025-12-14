@@ -7,6 +7,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import logoDark from '../../assets/logo-dark.png';
+import logoLight from '../../assets/logo-light.png';
 import {
     Menu,
     X,
@@ -127,7 +129,7 @@ export default function Header({
                 {/* Logo */}
                 <Link to="/" className={styles.logo}>
                     <img
-                        src={effectiveTheme === 'dark' ? '/logo-dark.png' : '/logo-light.png'}
+                        src={effectiveTheme === 'dark' ? logoDark : logoLight}
                         alt="House of Venus"
                         className={styles.logoImage}
                     />
@@ -295,7 +297,7 @@ export default function Header({
                             <div className={styles.mobileNavHeader}>
                                 <Link to="/" className={styles.logo} onClick={() => setIsMobileMenuOpen(false)}>
                                     <img
-                                        src={effectiveTheme === 'dark' ? '/logo-dark.png' : '/logo-light.png'}
+                                        src={effectiveTheme === 'dark' ? logoDark : logoLight}
                                         alt="House of Venus"
                                         className={styles.logoImageMobile}
                                     />
