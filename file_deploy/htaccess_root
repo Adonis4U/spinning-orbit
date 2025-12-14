@@ -46,11 +46,16 @@ Options -MultiViews
     </FilesMatch>
   </IfModule>
 
-  # 4) Mappature per path assoluti "brevi" (opzionale)
-  # Se vuoi che /videos/... punti a /hov/videos/...
-  # RewriteRule ^videos/(.*)$ /hov/videos/$1 [L]
-  # RewriteRule ^images/(.*)$ /hov/images/$1 [L]
-  # RewriteRule ^assets/(.*)$ /hov/assets/$1 [L]
+  # 4) Mappature OBBLIGATORIE per path assoluti
+  # IMPORTANTE: Vite usa /assets/ ma i file sono in /hov/assets/
+  RewriteRule ^assets/(.*)$ /hov/assets/$1 [L]
+  RewriteRule ^images/(.*)$ /hov/images/$1 [L]
+  RewriteRule ^videos/(.*)$ /hov/videos/$1 [L]
+  RewriteRule ^fonts/(.*)$ /hov/fonts/$1 [L]
+  
+  # Mappatura file root (favicon, robots, sitemap, manifest, og-image)
+  RewriteRule ^(favicon\.(ico|png|svg))$ /hov/$1 [L]
+  RewriteRule ^(robots\.txt|sitemap\.xml|manifest\.json|og-image\.png)$ /hov/$1 [L]
 
   # 5) Blog WP sotto /blog/ (se lo usi)
   RewriteRule ^blog/ - [L]
