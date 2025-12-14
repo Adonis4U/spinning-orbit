@@ -1,46 +1,123 @@
 /* ===========================================
-   HERO SECTION STYLES - MATCHING REFERENCE
-   Cosmic dark background, centered content
+   HERO SECTION STYLES - ENHANCED VERSION
+   Premium cosmic dark background with modern effects
    =========================================== */
 
 .hero {
     position: relative;
     width: 100%;
-    min-height: 700px;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    background: radial-gradient(ellipse at center bottom, 
+        hsla(280, 70%, 15%, 0.8) 0%,
+        hsla(240, 50%, 8%, 0.95) 50%,
+        hsla(220, 60%, 3%, 1) 100%);
 }
 
-/* Background image */
+/* Background image with parallax effect */
 .backgroundImage {
     position: absolute;
-    inset: 0;
-    background-image: url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=1920&q=80');
+    inset: -10%;
+    background-image: 
+        linear-gradient(180deg, 
+            rgba(27, 25, 23, 0) 0%,
+            rgba(27, 25, 23, 0.2) 50%,
+            rgba(27, 25, 23, 0.9) 100%),
+        url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=1920&q=80');
     background-size: cover;
     background-position: center top;
+    background-attachment: fixed;
+    filter: contrast(1.1) brightness(0.9);
+    transform: scale(1.1);
     z-index: 0;
+    animation: subtleZoom 30s ease-in-out infinite alternate;
 }
 
-/* Gradient overlay */
+@keyframes subtleZoom {
+    0% { transform: scale(1.1); }
+    100% { transform: scale(1.15); }
+}
+
+/* Multi-layer gradient overlay with cosmic effect */
 .gradientOverlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top,
+    background: 
+        radial-gradient(circle at 20% 50%, 
+            hsla(280, 100%, 60%, 0.15) 0%,
+            transparent 50%),
+        radial-gradient(circle at 80% 80%, 
+            hsla(210, 100%, 60%, 0.1) 0%,
+            transparent 50%),
+        radial-gradient(circle at 40% 20%, 
+            hsla(43, 96%, 56%, 0.08) 0%,
+            transparent 50%),
+        linear-gradient(to top,
             rgba(27, 25, 23, 1) 0%,
-            rgba(27, 25, 23, 0.85) 30%,
-            rgba(27, 25, 23, 0.6) 60%,
-            rgba(27, 25, 23, 0.3) 100%);
+            rgba(27, 25, 23, 0.9) 25%,
+            rgba(27, 25, 23, 0.7) 50%,
+            rgba(27, 25, 23, 0.4) 75%,
+            rgba(27, 25, 23, 0.2) 100%);
     z-index: 1;
+    mix-blend-mode: multiply;
 }
 
-/* Starfield */
+/* Enhanced starfield with twinkling effect */
 .starfield {
     position: absolute;
     inset: 0;
     z-index: 2;
-    opacity: 0.4;
+    opacity: 0.6;
+    animation: twinkle 5s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 0.8; }
+}
+
+/* Floating orbs effect */
+.hero::before,
+.hero::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.3;
+    z-index: 1;
+    animation: float 20s ease-in-out infinite;
+}
+
+.hero::before {
+    width: 400px;
+    height: 400px;
+    top: -200px;
+    left: -200px;
+    background: radial-gradient(circle, 
+        hsla(280, 100%, 70%, 0.8) 0%,
+        hsla(280, 100%, 70%, 0) 70%);
+    animation-delay: 0s;
+}
+
+.hero::after {
+    width: 300px;
+    height: 300px;
+    bottom: -150px;
+    right: -150px;
+    background: radial-gradient(circle, 
+        hsla(43, 96%, 56%, 0.6) 0%,
+        hsla(43, 96%, 56%, 0) 70%);
+    animation-delay: -10s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(30px, -30px) rotate(90deg); }
+    50% { transform: translate(-20px, 20px) rotate(180deg); }
+    75% { transform: translate(-30px, -10px) rotate(270deg); }
 }
 
 /* Main container */
@@ -68,16 +145,32 @@
     gap: var(--space-6);
 }
 
-/* Title - matching reference exactly */
+/* Enhanced title with premium typography */
 .title {
-    font-family: 'Manrope', var(--font-family-display), sans-serif;
-    font-size: 2.5rem;
-    font-weight: 900;
+    font-family: var(--font-family-display);
+    font-size: clamp(2.5rem, 5vw + 1rem, 5rem);
+    font-weight: 300;
     line-height: 1.1;
-    letter-spacing: -0.033em;
+    letter-spacing: -0.02em;
     color: white;
     margin: 0;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    text-shadow: 
+        0 0 40px rgba(245, 166, 35, 0.3),
+        0 4px 20px rgba(0, 0, 0, 0.5),
+        0 2px 4px rgba(0, 0, 0, 0.8);
+    position: relative;
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media screen and (min-width: 640px) {
@@ -92,25 +185,39 @@
     }
 }
 
-/* Gradient text for "Cosmic" word */
+/* Animated gradient text for "Cosmic" word */
 .titleGradient {
-    background: linear-gradient(90deg,
-            #d0c5b9 0%,
-            #a78bfa 50%,
-            #d0c5b9 100%);
+    background: linear-gradient(135deg,
+            #f5a623 0%,
+            #a78bfa 25%,
+            #f5a623 50%,
+            #e91e63 75%,
+            #f5a623 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    background-size: 200% 200%;
+    animation: gradientShift 4s ease-in-out infinite;
+    font-weight: 700;
+    font-style: italic;
 }
 
-/* Subtitle */
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Enhanced subtitle with better readability */
 .subtitle {
-    font-size: var(--font-size-base);
-    font-weight: 400;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.9);
-    max-width: 600px;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.95);
+    max-width: 650px;
     margin: 0;
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 1s ease-out 0.4s both;
 }
 
 @media screen and (min-width: 768px) {
@@ -119,34 +226,87 @@
     }
 }
 
-/* Calculator wrapper */
+/* Enhanced calculator wrapper with glass effect */
 .calculatorWrapper {
     width: 100%;
     max-width: 800px;
-    margin-top: var(--space-4);
+    margin-top: var(--space-6);
+    padding: var(--space-6);
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-2xl);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    animation: fadeInUp 1s ease-out 0.6s both;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Skip to collection link */
+.calculatorWrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%,
+        rgba(245, 166, 35, 0.5) 50%,
+        transparent 100%);
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+}
+
+/* Enhanced skip link with hover effects */
 .skipLink {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: var(--space-2);
     font-size: var(--font-size-sm);
-    color: rgba(255, 255, 255, 0.5);
-    margin-top: var(--space-4);
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: var(--space-6);
+    animation: fadeInUp 1s ease-out 0.8s both;
+    letter-spacing: 0.03em;
 }
 
 .skipLink a {
     color: white;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
-    transition: color var(--duration-fast) var(--ease-out);
+    text-decoration: none;
+    position: relative;
+    transition: all var(--duration-normal) var(--ease-out);
+    font-weight: 500;
+    padding: 2px 0;
+}
+
+.skipLink a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        var(--color-gold) 0%,
+        var(--color-rose) 100%);
+    transition: width var(--duration-normal) var(--ease-out);
 }
 
 .skipLink a:hover {
-    color: #d0c5b9;
+    color: var(--color-gold);
+    text-shadow: 0 0 20px rgba(245, 166, 35, 0.5);
+}
+
+.skipLink a:hover::after {
+    width: 100%;
 }
 
 /* ===========================================

@@ -4,9 +4,28 @@
    =========================================== */
 
 .section {
-    background: var(--section-bg-warm-dark);
-    padding: var(--space-16) var(--space-4);
+    background: linear-gradient(135deg,
+        hsl(280, 45%, 20%) 0%,
+        hsl(240, 40%, 15%) 50%,
+        hsl(220, 50%, 12%) 100%);
+    padding: var(--space-20) var(--space-4);
     overflow: hidden;
+    position: relative;
+}
+
+.section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+        radial-gradient(circle at 20% 50%, 
+            rgba(245, 166, 35, 0.1) 0%, 
+            transparent 40%),
+        radial-gradient(circle at 80% 80%, 
+            rgba(167, 139, 250, 0.1) 0%, 
+            transparent 40%);
+    mix-blend-mode: screen;
+    pointer-events: none;
 }
 
 @media screen and (min-width: 768px) {
@@ -15,14 +34,16 @@
     }
 }
 
-/* Container - split layout */
+/* Enhanced container with glass effect */
 .container {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-8);
-    max-width: var(--container-7xl);
+    gap: var(--space-10);
+    max-width: 1200px;
     margin: 0 auto;
     align-items: center;
+    position: relative;
+    z-index: 1;
 }
 
 @media screen and (min-width: 768px) {
