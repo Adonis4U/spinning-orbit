@@ -1,111 +1,68 @@
 /* ===========================================
-   VENUS TEASER COMPONENT
-   Venus Calculator teaser section for home page
+   VENUS TEASER COMPONENT - REDESIGNED
+   "More Than Just a Horoscope" split layout
+   Left: Image, Right: Content
    =========================================== */
 
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Sparkles, Star, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useTranslation } from '../../contexts';
 import styles from './VenusTeaser.module.css';
 
 export default function VenusTeaser() {
-    const { t } = useTranslation();
+    const { language } = useTranslation();
 
     return (
         <section className={styles.section}>
-            <div className={styles.background}>
-                {/* Decorative stars */}
-                {[...Array(20)].map((_, i) => (
-                    <motion.div
-                        key={i}
-                        className={styles.star}
-                        style={{
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                        }}
-                        animate={{
-                            opacity: [0.2, 0.8, 0.2],
-                            scale: [1, 1.2, 1],
-                        }}
-                        transition={{
-                            duration: 2 + Math.random() * 2,
-                            repeat: Infinity,
-                            delay: Math.random() * 2,
-                        }}
-                    >
-                        <Star size={6 + Math.random() * 8} />
-                    </motion.div>
-                ))}
-            </div>
+            <div className={styles.container}>
+                {/* LEFT: Image */}
+                <motion.div
+                    className={styles.imageWrapper}
+                    initial={{ opacity: 0, x: -40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <div className={styles.imagePlaceholder}>
+                        {/* Crystal ball / mystical image */}
+                        <div className={styles.crystalBall}>
+                            <span className={styles.venusSymbol}>♀</span>
+                        </div>
+                    </div>
+                </motion.div>
 
-            <div className="container">
-                <div className={styles.content}>
-                    {/* Icon */}
-                    <motion.div
-                        className={styles.iconWrapper}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                    >
-                        <Sparkles size={48} className={styles.icon} />
-                    </motion.div>
+                {/* RIGHT: Content */}
+                <motion.div
+                    className={styles.content}
+                    initial={{ opacity: 0, x: 40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.1 }}
+                >
+                    <span className={styles.label}>
+                        {language === 'en' ? 'OUR METHODOLOGY' : 'NASZA METODOLOGIA'}
+                    </span>
 
-                    {/* Title */}
-                    <motion.h2
-                        className={styles.title}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                    >
-                        {t('venusCalculator.title')}
-                    </motion.h2>
+                    <h2 className={styles.title}>
+                        {language === 'en'
+                            ? 'More Than Just a Horoscope'
+                            : 'Więcej niż Horoskop'
+                        }
+                    </h2>
 
-                    {/* Subtitle */}
-                    <motion.p
-                        className={styles.subtitle}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                    >
-                        {t('venusCalculator.subtitle')}
-                    </motion.p>
+                    <p className={styles.description}>
+                        {language === 'en'
+                            ? 'Your Venus sign dictates what catches your eye, how you express yourself and your personal aesthetic. House of Venus combines astrology with contemporary high fashion to curate a look that resonates with your soul\'s style.'
+                            : 'Twój znak Wenus określa, co przyciąga Twój wzrok, jak się wyrażasz i Twoją osobistą estetykę. House of Venus łączy astrologię ze współczesną modą, aby stworzyć look, który rezonuje ze stylem Twojej duszy.'
+                        }
+                    </p>
 
-                    {/* Zodiac preview */}
-                    <motion.div
-                        className={styles.zodiacPreview}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.3 }}
-                    >
-                        {['♈', '♉', '♊', '♋', '♌', '♍', '♎', '♏', '♐', '♑', '♒', '♓'].map((symbol, i) => (
-                            <motion.span
-                                key={i}
-                                className={styles.zodiacSymbol}
-                                whileHover={{ scale: 1.2, rotate: 10 }}
-                            >
-                                {symbol}
-                            </motion.span>
-                        ))}
-                    </motion.div>
-
-                    {/* CTA */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.4 }}
-                    >
-                        <Link to="/venus-calculator" className={styles.cta}>
-                            <Sparkles size={18} />
-                            {t('venusCalculator.calculate')}
-                            <ArrowRight size={18} />
-                        </Link>
-                    </motion.div>
-                </div>
+                    <Link to="/about" className={styles.link}>
+                        {language === 'en' ? 'Read the Journal' : 'Czytaj więcej'}
+                        <ArrowRight size={16} />
+                    </Link>
+                </motion.div>
             </div>
         </section>
     );

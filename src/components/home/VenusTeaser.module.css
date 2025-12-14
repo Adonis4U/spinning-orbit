@@ -1,21 +1,168 @@
 /* ===========================================
-   VENUS TEASER STYLES
+   VENUS TEASER STYLES - REDESIGNED
+   "More Than Just a Horoscope" split layout
    =========================================== */
 
 .section {
-    position: relative;
-    padding: var(--space-20) 0;
+    background: var(--section-bg-warm-dark);
+    padding: var(--space-16) var(--space-4);
     overflow: hidden;
-    background: var(--color-cosmic);
 }
 
 @media screen and (min-width: 768px) {
     .section {
-        padding: var(--space-24) 0;
+        padding: var(--space-20) var(--space-8);
     }
 }
 
-/* Background with stars */
+/* Container - split layout */
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    max-width: var(--container-7xl);
+    margin: 0 auto;
+    align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-12);
+    }
+}
+
+/* LEFT: Image */
+.imageWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.imagePlaceholder {
+    width: 100%;
+    max-width: 350px;
+    aspect-ratio: 1;
+    border-radius: var(--radius-2xl);
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.05) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Crystal ball effect */
+.crystalBall {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%,
+            rgba(255, 255, 255, 0.4) 0%,
+            rgba(255, 255, 255, 0.1) 30%,
+            rgba(139, 115, 85, 0.3) 70%,
+            rgba(139, 115, 85, 0.5) 100%);
+    box-shadow:
+        0 0 60px rgba(212, 175, 55, 0.3),
+        inset 0 0 40px rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.venusSymbol {
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 30px var(--color-gold);
+}
+
+@media screen and (min-width: 768px) {
+    .imagePlaceholder {
+        max-width: 400px;
+    }
+
+    .crystalBall {
+        width: 250px;
+        height: 250px;
+    }
+
+    .venusSymbol {
+        font-size: 5rem;
+    }
+}
+
+/* RIGHT: Content */
+.content {
+    color: white;
+    text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+    .content {
+        text-align: left;
+    }
+}
+
+.label {
+    display: inline-block;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: var(--letter-spacing-widest);
+    text-transform: uppercase;
+    margin-bottom: var(--space-4);
+}
+
+.title {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    color: white;
+    margin: 0 0 var(--space-4) 0;
+    line-height: var(--line-height-tight);
+}
+
+@media screen and (min-width: 768px) {
+    .title {
+        font-size: var(--font-size-4xl);
+    }
+}
+
+.description {
+    font-size: var(--font-size-base);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: var(--line-height-relaxed);
+    margin: 0 0 var(--space-6) 0;
+    max-width: 500px;
+}
+
+@media screen and (min-width: 768px) {
+    .description {
+        font-size: var(--font-size-lg);
+    }
+}
+
+.link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-gold);
+    text-decoration: none;
+    transition: all var(--duration-fast) var(--ease-out);
+}
+
+.link:hover {
+    gap: var(--space-3);
+    color: var(--color-gold-light);
+}
+
+/* ===========================================
+   LEGACY STYLES (kept for compatibility)
+   =========================================== */
+
 .background {
     position: absolute;
     inset: 0;
@@ -28,137 +175,37 @@
     opacity: 0.3;
 }
 
-/* Content */
-.content {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto;
-}
-
-/* Icon */
 .iconWrapper {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100px;
-    height: 100px;
-    margin-bottom: var(--space-6);
-    background: linear-gradient(135deg, hsla(43, 96%, 56%, 0.2), hsla(280, 60%, 50%, 0.2));
-    border: 2px solid hsla(43, 96%, 56%, 0.3);
-    border-radius: 50%;
+    display: none;
 }
 
 .icon {
     color: var(--color-gold);
-    animation: pulse 2s ease-in-out infinite;
 }
 
-@keyframes pulse {
-
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.1);
-    }
-}
-
-/* Title */
-.title {
-    font-family: var(--font-family-display);
-    font-size: clamp(2rem, 6vw, 3rem);
-    font-weight: var(--font-weight-bold);
-    color: white;
-    margin-bottom: var(--space-4);
-    line-height: 1.2;
-}
-
-/* Subtitle */
-.subtitle {
-    font-size: var(--font-size-lg);
-    color: hsla(0, 0%, 100%, 0.8);
-    margin-bottom: var(--space-8);
-    line-height: var(--line-height-relaxed);
-}
-
-@media screen and (min-width: 768px) {
-    .subtitle {
-        font-size: var(--font-size-xl);
-    }
-}
-
-/* Zodiac preview */
 .zodiacPreview {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-3);
-    margin-bottom: var(--space-10);
+    display: none;
 }
 
 .zodiacSymbol {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    font-size: var(--font-size-lg);
-    background: hsla(0, 0%, 100%, 0.1);
-    border: 1px solid hsla(0, 0%, 100%, 0.2);
-    border-radius: 50%;
-    cursor: default;
-    transition: all var(--duration-fast) var(--ease-out);
+    font-size: var(--font-size-xl);
+    color: white;
 }
 
-.zodiacSymbol:hover {
-    background: hsla(43, 96%, 56%, 0.2);
-    border-color: var(--color-gold);
-    color: var(--color-gold);
-}
-
-@media screen and (min-width: 768px) {
-    .zodiacSymbol {
-        width: 52px;
-        height: 52px;
-        font-size: var(--font-size-xl);
-    }
-}
-
-/* CTA */
 .cta {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: var(--space-2);
-    padding: var(--space-4) var(--space-10);
-    font-size: var(--font-size-base);
+    padding: var(--space-4) var(--space-8);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-inverse);
-    background: var(--color-gold-shimmer);
-    background-size: 200% auto;
-    border: none;
+    background: var(--color-gold);
     border-radius: var(--radius-full);
     text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-wider);
     transition: all var(--duration-normal) var(--ease-out);
 }
 
 .cta:hover {
-    background-position: right center;
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-glow-gold);
-    color: var(--color-text-inverse);
-}
-
-.cta svg {
-    transition: transform var(--duration-normal) var(--ease-out);
-}
-
-.cta:hover svg:last-child {
-    transform: translateX(4px);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
 }

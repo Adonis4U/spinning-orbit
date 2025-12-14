@@ -1,11 +1,11 @@
 /* ===========================================
-   MINI VENUS CALCULATOR COMPONENT
-   White card design matching reference project
+   MINI VENUS CALCULATOR COMPONENT - REFERENCE STYLE
+   Horizontal form layout matching the design reference
    =========================================== */
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Calendar, Clock, RotateCcw, Sunrise, AlertCircle } from 'lucide-react';
+import { Sparkles, Calendar, Clock, MapPin, RotateCcw, Sunrise, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTranslation, useVenusProfile } from '../../contexts';
 import { ZODIAC_SIGNS } from '../../constants/zodiac';
@@ -98,14 +98,10 @@ export default function MiniVenusCalculator() {
     const ascendantZodiacData = result?.ascendant ? ZODIAC_SIGNS[result.ascendant as keyof typeof ZODIAC_SIGNS] : null;
 
     return (
-        <motion.div
-            className={styles.calculator}
-            whileHover={{ y: -4 }}
-            transition={{ duration: 0.3 }}
-        >
+        <div className={styles.calculator}>
             <AnimatePresence mode="wait">
                 {!result ? (
-                    // Input form
+                    // Input form - horizontal layout
                     <motion.form
                         key="form"
                         className={styles.form}
@@ -115,69 +111,65 @@ export default function MiniVenusCalculator() {
                         exit={{ opacity: 0, x: -20 }}
                         transition={{ duration: 0.3 }}
                     >
-                        {/* Header */}
-                        <div className={styles.formHeader}>
-                            <Sparkles size={20} className={styles.formIcon} />
-                            <h3 className={styles.formTitle}>
-                                {language === 'en' ? 'Find Your Venus Sign' : 'Znajdź Swój Znak Wenus'}
-                            </h3>
-                        </div>
-                        <p className={styles.formSubtitle}>
-                            {language === 'en'
-                                ? 'Your Venus sign reveals the unique energy of your style'
-                                : 'Twój znak Wenus ujawnia unikalną energię Twojego stylu'
-                            }
-                        </p>
+                        {/* Form fields grid - 2 rows */}
+                        <div className={styles.fieldsGrid}>
+                            {/* Row 1: Birth Date and Birth Time */}
+                            <div className={styles.fieldRow}>
+                                {/* Birth Date */}
+                                <div className={styles.field}>
+                                    <label className={styles.fieldLabel}>
+                                        {language === 'en' ? 'BIRTH DATE' : 'DATA URODZENIA'}
+                                    </label>
+                                    <div className={styles.fieldInput}>
+                                        <Calendar size={16} className={styles.fieldIcon} />
+                                        <input
+                                            type="date"
+                                            value={birthDate}
+                                            onChange={(e) => setBirthDate(e.target.value)}
+                                            className={styles.input}
+                                            required
+                                        />
+                                    </div>
+                                </div>
 
-                        {/* Date of Birth */}
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>
-                                <Calendar size={14} />
-                                {language === 'en' ? 'Date of Birth' : 'Data Urodzenia'}
-                            </label>
-                            <div className={styles.inputWrapper}>
-                                <input
-                                    type="date"
-                                    value={birthDate}
-                                    onChange={(e) => setBirthDate(e.target.value)}
-                                    className={styles.input}
-                                    required
-                                />
+                                {/* Birth Time */}
+                                <div className={styles.field}>
+                                    <label className={styles.fieldLabel}>
+                                        {language === 'en' ? 'BIRTH TIME' : 'GODZINA URODZENIA'}
+                                    </label>
+                                    <div className={styles.fieldInput}>
+                                        <Clock size={16} className={styles.fieldIcon} />
+                                        <input
+                                            type="time"
+                                            value={birthTime}
+                                            onChange={(e) => setBirthTime(e.target.value)}
+                                            className={styles.input}
+                                            placeholder="--:--"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Row 2: Birth Location (full width) */}
+                            <div className={styles.fieldFull}>
+                                <label className={styles.fieldLabel}>
+                                    <MapPin size={14} className={styles.labelIcon} />
+                                    {language === 'en' ? 'BIRTH LOCATION' : 'MIEJSCE URODZENIA'}
+                                    <span className={styles.labelHint}>
+                                        {language === 'en' ? '(for Ascendant)' : '(dla Ascendentu)'}
+                                    </span>
+                                </label>
+                                <div className={styles.locationWrapper}>
+                                    <LocationPicker
+                                        value={location}
+                                        onChange={setLocation}
+                                        language={language as 'en' | 'pl'}
+                                        compact
+                                    />
+                                </div>
                             </div>
                         </div>
-
-                        {/* Time of Birth */}
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>
-                                <Clock size={14} />
-                                {language === 'en' ? 'Time of Birth' : 'Godzina Urodzenia'}
-                                <span className={styles.required}>*</span>
-                            </label>
-                            <div className={styles.inputWrapper}>
-                                <input
-                                    type="time"
-                                    value={birthTime}
-                                    onChange={(e) => setBirthTime(e.target.value)}
-                                    className={styles.input}
-                                    placeholder="--:--"
-                                    required
-                                />
-                            </div>
-                            <span className={styles.inputHint}>
-                                {language === 'en'
-                                    ? 'Required for accurate Venus sign'
-                                    : 'Wymagane do dokładnego znaku Wenus'
-                                }
-                            </span>
-                        </div>
-
-                        {/* Location Picker */}
-                        <LocationPicker
-                            value={location}
-                            onChange={setLocation}
-                            language={language as 'en' | 'pl'}
-                            compact
-                        />
 
                         {/* Form Error */}
                         {formError && (
@@ -187,7 +179,7 @@ export default function MiniVenusCalculator() {
                             </div>
                         )}
 
-                        {/* Submit */}
+                        {/* Submit Button - Primary color matching reference */}
                         <motion.button
                             type="submit"
                             className={styles.submitButton}
@@ -202,14 +194,14 @@ export default function MiniVenusCalculator() {
                                 </span>
                             ) : (
                                 <>
-                                    {language === 'en' ? 'Discover My Venus Style' : 'Odkryj Mój Styl Wenus'}
-                                    <Sparkles size={16} />
+                                    <Sparkles size={18} />
+                                    {language === 'en' ? 'Reveal My Style' : 'Odkryj Mój Styl'}
                                 </>
                             )}
                         </motion.button>
                     </motion.form>
                 ) : (
-                    // Result display
+                    // Result display - TWO COLUMN LAYOUT
                     <motion.div
                         key="result"
                         className={styles.result}
@@ -224,125 +216,137 @@ export default function MiniVenusCalculator() {
                             onClick={handleReset}
                             aria-label="Calculate again"
                         >
-                            <RotateCcw size={16} />
+                            <RotateCcw size={14} />
                         </button>
 
-                        {/* Sign display */}
-                        <motion.div
-                            className={styles.signHeader}
-                            initial={{ scale: 0.8, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
-                        >
-                            <span className={styles.signSymbol}>
-                                {signData?.symbol}
-                            </span>
-                        </motion.div>
-
-                        <motion.h3
-                            className={styles.signTitle}
-                            initial={{ y: 10, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: 0.2 }}
-                        >
-                            {language === 'en'
-                                ? `Venus in ${signData?.name_en}`
-                                : `Wenus w znaku ${signData?.name_pl}`
-                            }
-                        </motion.h3>
-
-                        {/* Ascendant Display */}
-                        {result.ascendant && ascendantZodiacData && (
+                        {/* LEFT COLUMN - Venus sign and ascendant */}
+                        <div className={styles.resultLeft}>
+                            {/* Sign display */}
                             <motion.div
-                                className={styles.ascendantMini}
-                                initial={{ y: 10, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                transition={{ delay: 0.25 }}
+                                className={styles.signHeader}
+                                initial={{ scale: 0.8, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
                             >
-                                <Sunrise size={14} className={styles.ascendantIcon} />
-                                <span className={styles.ascendantText}>
-                                    {language === 'en' ? 'Rising:' : 'Ascendent:'} {ascendantZodiacData.symbol} {language === 'en' ? ascendantZodiacData.name_en : ascendantZodiacData.name_pl}
+                                <span className={styles.signSymbol}>
+                                    {signData?.symbol}
                                 </span>
                             </motion.div>
-                        )}
 
-                        {/* Style Keywords */}
-                        <motion.div
-                            className={styles.keywords}
-                            initial={{ y: 10, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: 0.3 }}
-                        >
-                            {result.keywords.map((keyword, i) => (
-                                <span key={i} className={styles.keywordTag}>
-                                    {keyword}
+                            <motion.h3
+                                className={styles.signTitle}
+                                initial={{ y: 10, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.2 }}
+                            >
+                                {language === 'en'
+                                    ? `Venus in ${signData?.name_en}`
+                                    : `Wenus w ${signData?.name_pl}`
+                                }
+                            </motion.h3>
+
+                            {/* Ascendant Display */}
+                            {result.ascendant && ascendantZodiacData && (
+                                <motion.div
+                                    className={styles.ascendantMini}
+                                    initial={{ y: 10, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    transition={{ delay: 0.25 }}
+                                >
+                                    <Sunrise size={14} className={styles.ascendantIcon} />
+                                    <span className={styles.ascendantText}>
+                                        {language === 'en' ? 'Ascendant:' : 'Ascendent:'} {ascendantZodiacData.symbol} {language === 'en' ? ascendantZodiacData.name_en : ascendantZodiacData.name_pl}
+                                    </span>
+                                </motion.div>
+                            )}
+                        </div>
+
+                        {/* RIGHT COLUMN - Keywords, colors, actions */}
+                        <div className={styles.resultRight}>
+                            {/* Style Keywords */}
+                            <motion.div
+                                className={styles.keywordsSection}
+                                initial={{ y: 10, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.3 }}
+                            >
+                                <span className={styles.sectionLabel}>
+                                    {language === 'en' ? 'Your Style Keywords' : 'Twoje Słowa Kluczowe'}
                                 </span>
-                            ))}
-                        </motion.div>
-
-                        {/* Color Palette */}
-                        <motion.div
-                            className={styles.colorPalette}
-                            initial={{ y: 10, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: 0.4 }}
-                        >
-                            {result.colors.map((color, i) => (
-                                <motion.span
-                                    key={i}
-                                    className={styles.colorDot}
-                                    style={{ backgroundColor: color }}
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    transition={{ delay: 0.4 + i * 0.1, type: 'spring' }}
-                                />
-                            ))}
-                        </motion.div>
-
-                        {/* Action buttons */}
-                        <motion.div
-                            className={styles.actions}
-                            initial={{ y: 10, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: 0.5 }}
-                        >
-                            <Link to="/venus-calculator" className={styles.actionPrimary}>
-                                {language === 'en' ? 'Full Style Guide' : 'Zobacz pełny przewodnik stylu'}
-                            </Link>
-                            <Link to={`/collections/${result.sign}`} className={styles.actionSecondary}>
-                                {language === 'en' ? 'Shop My Collection' : 'Kup moją kolekcję'}
-                            </Link>
-                        </motion.div>
-
-                        <Link to={`/lookbook/${result.sign}`} className={styles.lookbookLink}>
-                            {language === 'en' ? 'View My Lookbook' : 'Zobacz mój lookbook'}
-                        </Link>
-
-                        {/* Best Matches */}
-                        <motion.div
-                            className={styles.matches}
-                            initial={{ y: 10, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: 0.6 }}
-                        >
-                            <span className={styles.matchesLabel}>
-                                {language === 'en' ? 'Best matches:' : 'Najlepsze dopasowania:'}
-                            </span>
-                            <span className={styles.matchesList}>
-                                {result.matches.map((match, i) => {
-                                    const matchSign = ZODIAC_SIGNS[match as keyof typeof ZODIAC_SIGNS];
-                                    return (
-                                        <span key={i}>
-                                            {language === 'en' ? matchSign?.name_en : matchSign?.name_pl}
-                                            {i < result.matches.length - 1 && ' ✦ '}
+                                <div className={styles.keywords}>
+                                    {result.keywords.map((keyword, i) => (
+                                        <span key={i} className={styles.keywordTag}>
+                                            {keyword}
                                         </span>
-                                    );
-                                })}
-                            </span>
-                        </motion.div>
+                                    ))}
+                                </div>
+                            </motion.div>
+
+                            {/* Color Palette */}
+                            <motion.div
+                                className={styles.colorSection}
+                                initial={{ y: 10, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.4 }}
+                            >
+                                <span className={styles.sectionLabel}>
+                                    {language === 'en' ? 'Your Color Palette' : 'Twoja Paleta Kolorów'}
+                                </span>
+                                <div className={styles.colorPalette}>
+                                    {result.colors.map((color, i) => (
+                                        <motion.span
+                                            key={i}
+                                            className={styles.colorDot}
+                                            style={{ backgroundColor: color }}
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            transition={{ delay: 0.4 + i * 0.05, type: 'spring' }}
+                                        />
+                                    ))}
+                                </div>
+                            </motion.div>
+
+                            {/* Action buttons */}
+                            <motion.div
+                                className={styles.actions}
+                                initial={{ y: 10, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.5 }}
+                            >
+                                <Link to="/venus-calculator" className={styles.actionPrimary}>
+                                    {language === 'en' ? 'Full Guide' : 'Pełny przewodnik'}
+                                </Link>
+                                <Link to={`/collections/${result.sign}`} className={styles.actionSecondary}>
+                                    {language === 'en' ? 'Shop' : 'Kolekcja'}
+                                </Link>
+                            </motion.div>
+
+                            {/* Best Matches */}
+                            <motion.div
+                                className={styles.matches}
+                                initial={{ y: 10, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ delay: 0.6 }}
+                            >
+                                <span className={styles.matchesLabel}>
+                                    {language === 'en' ? 'Best matches:' : 'Dopasowania:'}
+                                </span>
+                                <span className={styles.matchesList}>
+                                    {result.matches.map((match, i) => {
+                                        const matchSign = ZODIAC_SIGNS[match as keyof typeof ZODIAC_SIGNS];
+                                        return (
+                                            <span key={i}>
+                                                {language === 'en' ? matchSign?.name_en : matchSign?.name_pl}
+                                                {i < result.matches.length - 1 && ' ✦ '}
+                                            </span>
+                                        );
+                                    })}
+                                </span>
+                            </motion.div>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
-        </motion.div>
+        </div>
     );
 }

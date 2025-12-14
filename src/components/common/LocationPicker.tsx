@@ -305,7 +305,6 @@ export default function LocationPicker({ value, onChange, language, compact = fa
                 <label className={styles.label}>
                     <MapPin size={compact ? 12 : 14} />
                     {labels.city}
-                    <span className={styles.optional}>{labels.forAscendant}</span>
                 </label>
 
                 <div className={styles.inputWrapper}>

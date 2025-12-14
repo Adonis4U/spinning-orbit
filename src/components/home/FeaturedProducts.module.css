@@ -1,9 +1,11 @@
 /* ===========================================
-   FEATURED PRODUCTS SECTION STYLES
+   FEATURED PRODUCTS STYLES - REDESIGNED
+   Season Edit carousel layout
    =========================================== */
 
 .section {
     padding: var(--space-16) 0;
+    background: var(--section-bg-cream);
 }
 
 @media screen and (min-width: 768px) {
@@ -18,6 +20,8 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: var(--space-8);
+    flex-wrap: wrap;
+    gap: var(--space-4);
 }
 
 .title {
@@ -25,6 +29,7 @@
     font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
+    margin: 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -33,102 +38,81 @@
     }
 }
 
-.viewAll {
-    display: inline-flex;
+/* Navigation buttons */
+.navigation {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.navButton {
+    display: flex;
     align-items: center;
-    gap: var(--space-1);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    transition: color var(--duration-fast) var(--ease-out);
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-full);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
 }
 
-.viewAll:hover {
-    color: var(--color-gold);
+.navButton:hover:not(:disabled) {
+    background: var(--color-text-primary);
+    color: white;
+    border-color: var(--color-text-primary);
 }
 
-.viewAll svg {
-    transition: transform var(--duration-fast) var(--ease-out);
+.navButtonDisabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
-.viewAll:hover svg {
-    transform: translateX(4px);
-}
-
-/* Grid */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+/* Carousel */
+.carousel {
+    display: flex;
     gap: var(--space-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: var(--space-4);
 }
 
-@media screen and (min-width: 768px) {
-    .grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: var(--space-6);
+.carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.productItem {
+    flex: 0 0 260px;
+    scroll-snap-align: start;
+}
+
+@media screen and (min-width: 640px) {
+    .productItem {
+        flex: 0 0 280px;
     }
 }
 
 @media screen and (min-width: 1024px) {
-    .grid {
-        grid-template-columns: repeat(4, 1fr);
+    .productItem {
+        flex: 0 0 300px;
     }
 }
 
-/* CTA */
-.cta {
-    text-align: center;
-    margin-top: var(--space-12);
-}
-
-.ctaButton {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    padding: var(--space-4) var(--space-8);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-inverse);
-    background: var(--color-gold-shimmer);
-    background-size: 200% auto;
-    border: none;
-    border-radius: var(--radius-full);
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-wider);
-    transition: all var(--duration-normal) var(--ease-out);
-}
-
-.ctaButton:hover {
-    background-position: right center;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-glow-gold);
-    color: var(--color-text-inverse);
-}
-
-.ctaButton svg {
-    transition: transform var(--duration-normal) var(--ease-out);
-}
-
-.ctaButton:hover svg {
-    transform: translateX(4px);
-}
-
-/* Loading State */
+/* Loading & Error states */
 .loadingState,
 .errorState {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-16) 0;
+    min-height: 200px;
     color: var(--color-text-secondary);
 }
 
 .spinner {
     animation: spin 1s linear infinite;
-    color: var(--color-gold);
 }
 
 @keyframes spin {
@@ -139,4 +123,102 @@
     to {
         transform: rotate(360deg);
     }
+}
+
+/* View all link */
+.viewAllWrapper {
+    text-align: center;
+    margin-top: var(--space-8);
+}
+
+.viewAllLink {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+}
+
+.viewAllLink:hover {
+    color: var(--color-text-primary);
+}
+
+/* Legacy grid and CTA (kept for compatibility) */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+}
+
+@media screen and (min-width: 640px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-6);
+    }
+}
+
+.viewAll {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+}
+
+.viewAll:hover {
+    color: var(--color-text-primary);
+}
+
+.cta {
+    text-align: center;
+    margin-top: var(--space-10);
+}
+
+.ctaButton {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    background: transparent;
+    border: 2px solid var(--color-border-medium);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    transition: all var(--duration-normal) var(--ease-out);
+}
+
+.ctaButton:hover {
+    color: var(--color-gold);
+    border-color: var(--color-gold);
+}
+
+/* ===========================================
+   DARK MODE
+   =========================================== */
+
+[data-theme="dark"] .section {
+    background: var(--color-bg-secondary);
+}
+
+[data-theme="dark"] .navButton {
+    background: var(--color-bg-tertiary);
+    border-color: var(--color-border-medium);
+}
+
+[data-theme="dark"] .navButton:hover:not(:disabled) {
+    background: var(--color-gold);
+    color: var(--color-text-inverse);
+    border-color: var(--color-gold);
 }

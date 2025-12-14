@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import {
     Sparkles,
     Instagram,
@@ -29,13 +27,6 @@ interface FooterProps {
 // Translations
 const translations = {
     en: {
-        newsletter: {
-            title: 'Join the Cosmic Circle',
-            subtitle: 'Subscribe for exclusive style horoscopes, new arrivals & Venus-inspired looks',
-            placeholder: 'Enter your email',
-            button: 'Subscribe',
-            success: 'Thank you for subscribing!',
-        },
         columns: {
             shop: 'Shop',
             about: 'About',
@@ -64,13 +55,6 @@ const translations = {
         },
     },
     pl: {
-        newsletter: {
-            title: 'Dołącz do Kosmicznego Kręgu',
-            subtitle: 'Zapisz się, aby otrzymywać ekskluzywne horoskopy stylowe, nowości i inspirowane Wenus stylizacje',
-            placeholder: 'Wpisz swój email',
-            button: 'Zapisz się',
-            success: 'Dziękujemy za zapis!',
-        },
         columns: {
             shop: 'Sklep',
             about: 'O nas',
@@ -101,80 +85,10 @@ const translations = {
 };
 
 export default function Footer({ language }: FooterProps) {
-    const [email, setEmail] = useState('');
-    const [isSubmitted, setIsSubmitted] = useState(false);
-
     const t = translations[language];
-
-    const handleNewsletterSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // TODO: Integrate with Supabase newsletter subscription
-        if (email) {
-            setIsSubmitted(true);
-            setEmail('');
-            setTimeout(() => setIsSubmitted(false), 3000);
-        }
-    };
 
     return (
         <footer className={styles.footer}>
-            {/* Newsletter Section */}
-            <section className={styles.newsletterSection}>
-                <div className={styles.newsletterContent}>
-                    <motion.h3
-                        className={styles.newsletterTitle}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        {t.newsletter.title}
-                    </motion.h3>
-                    <motion.p
-                        className={styles.newsletterSubtitle}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                    >
-                        {t.newsletter.subtitle}
-                    </motion.p>
-                    <motion.form
-                        className={styles.newsletterForm}
-                        onSubmit={handleNewsletterSubmit}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                    >
-                        {isSubmitted ? (
-                            <motion.p
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                style={{ color: 'white', fontWeight: 500 }}
-                            >
-                                ✨ {t.newsletter.success}
-                            </motion.p>
-                        ) : (
-                            <>
-                                <input
-                                    type="email"
-                                    className={styles.newsletterInput}
-                                    placeholder={t.newsletter.placeholder}
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                    aria-label={t.newsletter.placeholder}
-                                />
-                                <button type="submit" className={styles.newsletterButton}>
-                                    {t.newsletter.button}
-                                </button>
-                            </>
-                        )}
-                    </motion.form>
-                </div>
-            </section>
-
             {/* Main Footer Content */}
             <div className={styles.footerMain}>
                 <div className={styles.footerGrid}>

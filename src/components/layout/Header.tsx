@@ -5,25 +5,20 @@ import {
     Menu,
     X,
     ShoppingBag,
-    Heart,
     User,
     Search,
-    Sun,
-    Moon,
     Sparkles,
     LayoutDashboard,
 } from 'lucide-react';
 import { useAuth } from '../../contexts';
 import styles from './Header.module.css';
 
-// Navigation links configuration
+// Navigation links configuration - simplified to match reference
 const NAV_LINKS = [
     { path: '/shop', label_en: 'Shop', label_pl: 'Sklep' },
-    { path: '/collections', label_en: 'Collections', label_pl: 'Kolekcje' },
-    { path: '/venus-calculator', label_en: 'Venus Calculator', label_pl: 'Kalkulator Venus' },
-    { path: '/lookbook', label_en: 'Lookbook', label_pl: 'Lookbook' },
-    { path: '/blog', label_en: 'Blog', label_pl: 'Blog' },
+    { path: '/venus-calculator', label_en: 'Horoscope', label_pl: 'Horoskop' },
     { path: '/about', label_en: 'About', label_pl: 'O nas' },
+    { path: '/blog', label_en: 'Journal', label_pl: 'Dziennik' },
 ];
 
 interface HeaderProps {
@@ -37,8 +32,8 @@ interface HeaderProps {
 export default function Header({
     language,
     onLanguageChange,
-    theme,
-    onThemeChange,
+    theme: _theme,
+    onThemeChange: _onThemeChange,
     cartItemsCount = 0,
 }: HeaderProps) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -72,23 +67,6 @@ export default function Header({
         };
     }, [isMobileMenuOpen]);
 
-    const handleThemeToggle = () => {
-        const themes: ('light' | 'dark' | 'system')[] = ['light', 'dark', 'system'];
-        const currentIndex = themes.indexOf(theme);
-        const nextTheme = themes[(currentIndex + 1) % themes.length];
-        onThemeChange(nextTheme);
-    };
-
-    const getThemeIcon = () => {
-        switch (theme) {
-            case 'dark':
-                return <Moon size={20} />;
-            case 'system':
-                return <Sparkles size={20} />;
-            default:
-                return <Sun size={20} />;
-        }
-    };
 
     const getNavLabel = (link: typeof NAV_LINKS[0]) => {
         return language === 'en' ? link.label_en : link.label_pl;
@@ -120,35 +98,23 @@ export default function Header({
                     ))}
                 </nav>
 
-                {/* Header Actions */}
+                {/* Header Actions - Right side */}
                 <div className={styles.headerActions}>
-                    {/* Search */}
-                    <button className={styles.iconButton} aria-label="Search">
-                        <Search />
+                    {/* Desktop Search Bar */}
+                    <div className={styles.searchBar}>
+                        <Search size={18} className={styles.searchIcon} />
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            className={styles.searchInput}
+                        />
+                    </div>
+
+                    {/* Mobile Search Button */}
+                    <button className={styles.mobileSearchButton} aria-label="Search">
+                        <Search size={20} />
                     </button>
 
-                    {/* Language Toggle */}
-                    <button
-                        className={`${styles.toggleButton} ${language === 'pl' ? styles.toggleButtonActive : ''}`}
-                        onClick={() => onLanguageChange(language === 'en' ? 'pl' : 'en')}
-                        aria-label={`Switch to ${language === 'en' ? 'Polish' : 'English'}`}
-                    >
-                        {language.toUpperCase()}
-                    </button>
-
-                    {/* Theme Toggle */}
-                    <button
-                        className={styles.iconButton}
-                        onClick={handleThemeToggle}
-                        aria-label={`Current theme: ${theme}. Click to change.`}
-                    >
-                        {getThemeIcon()}
-                    </button>
-
-                    {/* Wishlist */}
-                    <Link to="/wishlist" className={styles.iconButton} aria-label="Wishlist">
-                        <Heart />
-                    </Link>
 
                     {/* Account - redirects to login if not authenticated */}
                     <Link
@@ -258,9 +224,6 @@ export default function Header({
                                     onClick={() => onLanguageChange(language === 'en' ? 'pl' : 'en')}
                                 >
                                     {language === 'en' ? 'PL' : 'EN'}
-                                </button>
-                                <button className={styles.toggleButton} onClick={handleThemeToggle}>
-                                    {getThemeIcon()}
                                 </button>
                             </div>
                         </motion.nav>

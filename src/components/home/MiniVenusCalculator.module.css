@@ -1,19 +1,17 @@
 /* ===========================================
-   MINI VENUS CALCULATOR STYLES
-   White/cream card design matching reference
+   MINI VENUS CALCULATOR STYLES - REFERENCE DESIGN
+   Glassmorphism card with horizontal form layout
    =========================================== */
 
 .calculator {
     width: 100%;
-    max-width: 420px;
-    padding: var(--space-8);
-    background: linear-gradient(135deg,
-            hsl(30, 30%, 97%) 0%,
-            hsl(30, 25%, 95%) 100%);
+    padding: var(--space-6);
+    background: rgba(27, 25, 23, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: var(--radius-2xl);
-    box-shadow:
-        0 4px 24px hsla(0, 0%, 0%, 0.08),
-        0 12px 48px hsla(0, 0%, 0%, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 /* Form */
@@ -23,118 +21,227 @@
     gap: var(--space-5);
 }
 
-.formHeader {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    margin-bottom: var(--space-1);
-}
-
-.formIcon {
-    color: hsl(25, 45%, 50%);
-}
-
-.formTitle {
-    font-family: var(--font-family-display);
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
-    color: hsl(25, 30%, 25%);
-    margin: 0;
-}
-
-.formSubtitle {
-    font-size: var(--font-size-sm);
-    color: hsl(25, 20%, 45%);
-    margin: 0;
-    line-height: 1.5;
-}
-
-.inputGroup {
+/* Fields grid - responsive */
+.fieldsGrid {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: var(--space-4);
 }
 
-.label {
+/* Row of fields */
+.fieldRow {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+}
+
+@media screen and (min-width: 480px) {
+    .fieldRow {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Single field */
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    text-align: left;
+}
+
+.fieldFull {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    text-align: left;
+}
+
+/* Field label */
+.fieldLabel {
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: hsl(25, 25%, 35%);
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding-left: var(--space-1);
 }
 
-.inputWrapper {
+.labelIcon {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.labelHint {
+    text-transform: none;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 9px;
+}
+
+/* Field input wrapper */
+.fieldInput {
     position: relative;
-}
-
-.input {
-    width: 100%;
-    padding: var(--space-3) var(--space-4);
-    font-size: var(--font-size-sm);
-    color: hsl(25, 30%, 25%);
-    background: white;
-    border: 1px solid hsl(25, 20%, 85%);
+    display: flex;
+    align-items: center;
+    height: 48px;
+    background: rgba(27, 25, 23, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-lg);
-    outline: none;
-    transition: all var(--duration-fast) var(--ease-out);
+    transition: border-color var(--duration-fast) var(--ease-out);
 }
 
-.input:focus {
-    border-color: hsl(25, 45%, 55%);
-    box-shadow: 0 0 0 3px hsla(25, 45%, 55%, 0.15);
+.fieldInput:focus-within {
+    border-color: #d0c5b9;
 }
 
-.input::placeholder {
-    color: hsl(25, 15%, 65%);
-}
-
-.inputIcon {
+/* Field icon */
+.fieldIcon {
     position: absolute;
-    right: var(--space-3);
-    top: 50%;
-    transform: translateY(-50%);
-    color: hsl(25, 20%, 70%);
+    left: var(--space-3);
+    color: rgba(255, 255, 255, 0.4);
     pointer-events: none;
 }
 
-.inputHint {
-    font-size: var(--font-size-xs);
-    color: hsl(25, 20%, 55%);
-    font-style: italic;
+/* Location wrapper - needs special handling for LocationPicker */
+.locationWrapper {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    min-height: 48px;
+    background: rgba(27, 25, 23, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--duration-fast) var(--ease-out);
+    padding: var(--space-2) var(--space-3);
 }
 
+.locationWrapper:focus-within {
+    border-color: #d0c5b9;
+}
+
+/* Override LocationPicker styles when inside our wrapper */
+.locationWrapper>div {
+    flex: 1;
+}
+
+/* Hide labels inside LocationPicker when in compact mode */
+.locationWrapper label {
+    display: none !important;
+}
+
+/* Country select button override */
+.locationWrapper button {
+    background: transparent !important;
+    border: none !important;
+    color: white !important;
+    height: 48px !important;
+    padding: 0 var(--space-2) !important;
+}
+
+/* Selected value text in country dropdown */
+.locationWrapper button span {
+    color: white !important;
+}
+
+/* Chevron icon */
+.locationWrapper button svg {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* City input override */
+.locationWrapper input {
+    background: transparent !important;
+    border: none !important;
+    color: white !important;
+    height: 48px !important;
+    padding-left: var(--space-2) !important;
+}
+
+.locationWrapper input::placeholder {
+    color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Dropdown dark theme override */
+.locationWrapper [class*="dropdown"] {
+    background: #1a1a1a !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.locationWrapper [class*="searchInput"] {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.locationWrapper [class*="option"] {
+    background: transparent !important;
+    color: white !important;
+}
+
+.locationWrapper [class*="option"]:hover {
+    background: rgba(208, 197, 185, 0.2) !important;
+}
+
+.locationWrapper [class*="searchIcon"] {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Input styling */
+.input {
+    width: 100%;
+    height: 100%;
+    padding: 0 var(--space-3) 0 40px;
+    font-size: var(--font-size-sm);
+    color: white;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Date/time input styling for webkit */
+.input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+/* Submit Button - Black background per user request */
 .submitButton {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: var(--space-2);
-    padding: var(--space-4) var(--space-6);
+    width: 100%;
+    height: 48px;
     margin-top: var(--space-2);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-base);
+    font-weight: 700;
     color: white;
-    background: linear-gradient(135deg,
-            hsl(25, 50%, 50%) 0%,
-            hsl(25, 45%, 45%) 100%);
+    background: #1a1a1a;
     border: none;
     border-radius: var(--radius-lg);
     cursor: pointer;
-    transition: all var(--duration-fast) var(--ease-out);
+    transition: all var(--duration-normal) var(--ease-out);
 }
 
 .submitButton:hover:not(:disabled) {
-    background: linear-gradient(135deg,
-            hsl(25, 55%, 55%) 0%,
-            hsl(25, 50%, 50%) 100%);
-    box-shadow: 0 4px 16px hsla(25, 50%, 50%, 0.35);
+    background: #333333;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .submitButton:disabled {
-    opacity: 0.7;
+    opacity: 0.5;
     cursor: not-allowed;
 }
 
+/* Loading state */
 .loadingText {
     display: flex;
     align-items: center;
@@ -144,7 +251,7 @@
 .spinner {
     width: 16px;
     height: 16px;
-    border: 2px solid hsla(0, 0%, 100%, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.3);
     border-top-color: white;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
@@ -156,14 +263,56 @@
     }
 }
 
-/* Result */
+/* Form Error */
+.formError {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-xs);
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    border-radius: var(--radius-md);
+}
+
+/* ===========================================
+   RESULT DISPLAY - TWO COLUMN LAYOUT
+   =========================================== */
+
 .result {
     position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    padding: var(--space-4) 0;
+}
+
+@media screen and (max-width: 600px) {
+    .result {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+}
+
+/* Left column - Venus sign and ascendant */
+.resultLeft {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
     text-align: center;
-    gap: var(--space-4);
+}
+
+/* Right column - Keywords, colors, actions */
+.resultRight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: var(--space-3);
 }
 
 .resetButton {
@@ -173,10 +322,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
-    color: hsl(25, 20%, 55%);
-    background: hsl(25, 20%, 92%);
+    width: 32px;
+    height: 32px;
+    color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.1);
     border: none;
     border-radius: 50%;
     cursor: pointer;
@@ -184,55 +333,33 @@
 }
 
 .resetButton:hover {
-    color: hsl(25, 30%, 35%);
-    background: hsl(25, 20%, 88%);
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .signHeader {
-    margin-bottom: var(--space-2);
+    margin-bottom: 0;
 }
 
 .signSymbol {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 64px;
-    height: 64px;
-    font-size: 2rem;
-    background: linear-gradient(135deg,
-            hsl(280, 60%, 55%) 0%,
-            hsl(260, 50%, 50%) 100%);
+    width: 80px;
+    height: 80px;
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, #d0c5b9 0%, #a78bfa 100%);
     color: white;
     border-radius: 50%;
-    box-shadow: 0 4px 16px hsla(280, 60%, 50%, 0.3);
+    box-shadow: 0 8px 24px rgba(208, 197, 185, 0.4);
 }
 
 .signTitle {
     font-family: var(--font-family-display);
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
-    color: hsl(25, 30%, 25%);
+    color: white;
     margin: 0;
-}
-
-/* Required indicator */
-.required {
-    color: #e53935;
-    margin-left: var(--space-1);
-    font-weight: var(--font-weight-bold);
-}
-
-/* Form Error */
-.formError {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-3);
-    font-size: var(--font-size-xs);
-    color: #e53935;
-    background: hsla(4, 90%, 58%, 0.1);
-    border: 1px solid hsla(4, 90%, 58%, 0.3);
-    border-radius: var(--radius-md);
 }
 
 /* Ascendant Mini Display */
@@ -242,60 +369,79 @@
     justify-content: center;
     gap: var(--space-2);
     padding: var(--space-2) var(--space-4);
-    background: hsla(280, 60%, 50%, 0.1);
-    border: 1px solid hsla(280, 60%, 50%, 0.2);
+    margin-top: var(--space-3);
+    background: rgba(208, 197, 185, 0.2);
+    border: 1px solid rgba(208, 197, 185, 0.3);
     border-radius: var(--radius-full);
 }
 
 .ascendantIcon {
-    color: hsla(280, 60%, 50%, 1);
+    color: #d0c5b9;
 }
 
 .ascendantText {
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
-    color: hsla(280, 50%, 40%, 1);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Section Labels */
+.sectionLabel {
+    font-size: 9px;
+    font-weight: var(--font-weight-medium);
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-1);
+}
+
+/* Keywords Section */
+.keywordsSection {
+    display: flex;
+    flex-direction: column;
 }
 
 /* Keywords */
 .keywords {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-2);
+    gap: var(--space-1);
 }
 
 .keywordTag {
-    padding: var(--space-2) var(--space-4);
-    font-size: var(--font-size-sm);
+    padding: var(--space-1) var(--space-2);
+    font-size: 11px;
     font-weight: var(--font-weight-medium);
-    color: hsl(25, 30%, 35%);
-    background: white;
-    border: 1px solid hsl(25, 20%, 85%);
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--radius-full);
+}
+
+/* Color Section */
+.colorSection {
+    display: flex;
+    flex-direction: column;
 }
 
 /* Color Palette */
 .colorPalette {
     display: flex;
-    justify-content: center;
-    gap: var(--space-3);
-    padding: var(--space-3) 0;
+    gap: var(--space-2);
 }
 
 .colorDot {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    box-shadow: 0 2px 8px hsla(0, 0%, 0%, 0.15);
-    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 /* Actions */
 .actions {
     display: flex;
-    gap: var(--space-3);
-    width: 100%;
+    gap: var(--space-2);
     margin-top: var(--space-2);
 }
 
@@ -304,21 +450,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-3) var(--space-4);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: white;
-    background: linear-gradient(135deg,
-            hsl(25, 50%, 50%) 0%,
-            hsl(25, 45%, 45%) 100%);
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: #1a1a1a;
+    background: #d0c5b9;
     border-radius: var(--radius-md);
     text-decoration: none;
+    white-space: nowrap;
     transition: all var(--duration-fast) var(--ease-out);
 }
 
 .actionPrimary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px hsla(25, 50%, 50%, 0.3);
+    background: #c4b8ab;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(208, 197, 185, 0.4);
 }
 
 .actionSecondary {
@@ -326,60 +472,66 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-3) var(--space-4);
-    font-size: var(--font-size-sm);
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-xs);
     font-weight: var(--font-weight-medium);
-    color: hsl(25, 35%, 35%);
-    background: white;
-    border: 1px solid hsl(25, 20%, 80%);
+    color: white;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--radius-md);
     text-decoration: none;
+    white-space: nowrap;
     transition: all var(--duration-fast) var(--ease-out);
 }
 
 .actionSecondary:hover {
-    background: hsl(25, 20%, 97%);
-    border-color: hsl(25, 30%, 70%);
+    background: #333333;
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    color: white;
 }
 
-.lookbookLink {
-    font-size: var(--font-size-sm);
-    color: hsl(25, 40%, 50%);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-    transition: color var(--duration-fast) var(--ease-out);
-}
-
-.lookbookLink:hover {
-    color: hsl(25, 50%, 40%);
-}
-
-/* Matches */
+/* Matches - at bottom of right column */
 .matches {
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
-    padding-top: var(--space-4);
-    border-top: 1px solid hsl(25, 20%, 90%);
-    width: 100%;
+    gap: 2px;
+    padding-top: var(--space-2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .matchesLabel {
-    font-size: var(--font-size-xs);
+    font-size: 9px;
     font-weight: var(--font-weight-medium);
-    color: hsl(25, 45%, 50%);
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .matchesList {
-    font-size: var(--font-size-sm);
-    color: hsl(25, 30%, 35%);
+    font-size: var(--font-size-xs);
+    color: rgba(255, 255, 255, 0.8);
 }
 
-/* Responsive */
-@media (max-width: 640px) {
+/* ===========================================
+   RESPONSIVE
+   =========================================== */
+
+@media screen and (max-width: 480px) {
     .calculator {
-        padding: var(--space-6);
+        padding: var(--space-4);
+    }
+
+    .signSymbol {
+        width: 56px;
+        height: 56px;
+        font-size: 1.5rem;
+    }
+
+    .submitButton {
+        height: 44px;
+        font-size: var(--font-size-sm);
     }
 
     .actions {
