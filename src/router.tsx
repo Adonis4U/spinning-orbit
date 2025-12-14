@@ -159,6 +159,14 @@ export const routes = [
         element: withSuspense(AccountDashboard),
     },
     {
+        path: '/account/settings',
+        element: withSuspense(AccountDashboard), // Settings tab in dashboard
+    },
+    {
+        path: '/account/orders',
+        element: withSuspense(AccountDashboard), // Orders view in dashboard
+    },
+    {
         path: '/account/orders/:orderId',
         element: withSuspense(OrderDetail),
     },
