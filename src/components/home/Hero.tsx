@@ -52,7 +52,7 @@ export default function Hero() {
                     loop
                     playsInline
                     preload="auto"
-                    poster="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=1920&q=80"
+                    // poster="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=1920&q=80" // Disabled to prevent image flash
                     // Performance optimizations
                     disablePictureInPicture
                     controlsList="nodownload nofullscreen noremoteplayback"
