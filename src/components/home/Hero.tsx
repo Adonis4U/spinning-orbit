@@ -87,13 +87,13 @@ export default function Hero() {
                     <motion.h1 className={styles.title} variants={itemVariants}>
                         {language === 'en' ? (
                             <>
-                                Unlock Your <span className={styles.titleGradient}>Cosmic</span>
+                                Unlock Your <span className={styles.titleGradient}>VENUS</span>
                                 <br />
                                 Style Code
                             </>
                         ) : (
                             <>
-                                Odkryj Swój <span className={styles.titleGradient}>Kosmiczny</span>
+                                Odkryj Swój <span className={styles.titleGradient}>WENUS</span>
                                 <br />
                                 Kod Stylu
                             </>

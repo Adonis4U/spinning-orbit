@@ -129,17 +129,21 @@ p {
 
 /* Links */
 a {
-    color: var(--color-gold);
+    /* OLD: color: var(--color-gold); */
+    color: var(--color-text-primary);
     text-decoration: none;
     transition: color var(--duration-fast) var(--ease-in-out);
 }
 
 a:hover {
-    color: var(--color-gold-light);
+    /* OLD: color: var(--color-gold-light); */
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
 }
 
 a:focus-visible {
-    outline: 2px solid var(--color-gold);
+    /* OLD: outline: 2px solid var(--color-gold); */
+    outline: 2px solid var(--color-text-primary);
     outline-offset: 2px;
     border-radius: var(--radius-sm);
 }
@@ -157,7 +161,8 @@ svg {
 
 /* Enhanced focus states for accessibility */
 :focus-visible {
-    outline: 2px solid var(--color-gold);
+    /* OLD: outline: 2px solid var(--color-gold); */
+    outline: 2px solid var(--color-text-primary);
     outline-offset: 3px;
     border-radius: var(--radius-sm);
 }
@@ -177,7 +182,8 @@ svg {
 
 /* Selection */
 ::selection {
-    background-color: var(--color-gold);
+    /* OLD: background-color: var(--color-gold); */
+    background-color: var(--color-text-primary);
     color: var(--color-text-inverse);
 }
 
@@ -221,7 +227,8 @@ svg {
     left: var(--space-4);
     z-index: var(--z-tooltip);
     padding: var(--space-2) var(--space-4);
-    background-color: var(--color-gold);
+    /* OLD: background-color: var(--color-gold); */
+    background-color: var(--color-text-primary);
     color: var(--color-text-inverse);
     font-weight: var(--font-weight-semibold);
     border-radius: var(--radius-md);
@@ -341,8 +348,9 @@ textarea {
 input:focus,
 textarea:focus {
     outline: none;
-    border-color: var(--color-gold);
-    box-shadow: 0 0 0 3px hsla(43, 96%, 56%, 0.2);
+    /* OLD: border-color: var(--color-gold); box-shadow with gold */
+    border-color: var(--color-text-primary);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
 input::placeholder,
