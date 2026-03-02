@@ -12,8 +12,8 @@ const PageLoader = () => (
         <div style={{
             width: '40px',
             height: '40px',
-            border: '3px solid hsla(43, 96%, 56%, 0.2)',
-            borderTopColor: 'hsl(43, 96%, 56%)',
+            border: '3px solid hsla(265, 72%, 62%, 0.2)',
+            borderTopColor: 'hsl(265, 72%, 62%)',
             borderRadius: '50%',
             animation: 'spin 0.8s linear infinite',
         }} />
@@ -52,8 +52,16 @@ const Register = lazy(() => import('./pages/Account/Register'));
 const AccountDashboard = lazy(() => import('./pages/Account/AccountDashboard'));
 const OrderDetail = lazy(() => import('./pages/Account/OrderDetail'));
 
-// Admin pages
-const AdminDashboard = lazy(() => import('./pages/Admin/AdminDashboard'));
+// Admin pages (new modular structure)
+const AdminLayout = lazy(() => import('./pages/Admin/AdminLayout'));
+const DashboardOverview = lazy(() => import('./pages/Admin/DashboardOverview'));
+const ProductsManager = lazy(() => import('./pages/Admin/ProductsManager'));
+const OrdersManager = lazy(() => import('./pages/Admin/OrdersManager'));
+const CustomersManager = lazy(() => import('./pages/Admin/CustomersManager'));
+
+// Venus Collections pages
+const VenusCollections = lazy(() => import('./pages/VenusCollections/VenusCollections'));
+const VenusSignDetail = lazy(() => import('./pages/VenusCollections/VenusSignDetail'));
 
 // Static pages
 const PrivacyPolicy = lazy(() => import('./pages/Static/PrivacyPolicy'));
@@ -74,7 +82,7 @@ const withSuspense = (Component: React.LazyExoticComponent<React.ComponentType>)
     </Suspense>
 );
 
-// Routes configuration
+// Main site routes (with standard Layout header/footer)
 export const routes = [
     // Main pages
     {
@@ -145,6 +153,15 @@ export const routes = [
         path: '/venus-compatibility',
         element: withSuspense(VenusCompatibility),
     },
+    // Venus Sign Collections
+    {
+        path: '/venus-collections',
+        element: withSuspense(VenusCollections),
+    },
+    {
+        path: '/venus-collections/:sign',
+        element: withSuspense(VenusSignDetail),
+    },
     // Account routes
     {
         path: '/account/login',
@@ -160,24 +177,15 @@ export const routes = [
     },
     {
         path: '/account/settings',
-        element: withSuspense(AccountDashboard), // Settings tab in dashboard
+        element: withSuspense(AccountDashboard),
     },
     {
         path: '/account/orders',
-        element: withSuspense(AccountDashboard), // Orders view in dashboard
+        element: withSuspense(AccountDashboard),
     },
     {
         path: '/account/orders/:orderId',
         element: withSuspense(OrderDetail),
-    },
-    // Admin route
-    {
-        path: '/admin',
-        element: withSuspense(AdminDashboard),
-    },
-    {
-        path: '/admin/*',
-        element: withSuspense(AdminDashboard),
     },
     // Static pages
     {
@@ -203,3 +211,17 @@ export const routes = [
         element: withSuspense(NotFound),
     },
 ];
+
+// Admin routes (separate layout, no site header/footer)
+export const adminRoutes = {
+    path: '/admin',
+    element: withSuspense(AdminLayout),
+    children: [
+        { index: true, element: withSuspense(DashboardOverview) },
+        { path: 'products', element: withSuspense(ProductsManager) },
+        { path: 'orders', element: withSuspense(OrdersManager) },
+        { path: 'customers', element: withSuspense(CustomersManager) },
+        // Future: collections, blog, settings
+        { path: '*', element: withSuspense(DashboardOverview) },
+    ],
+};

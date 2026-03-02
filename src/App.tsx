@@ -11,7 +11,7 @@ import {
   useLanguage,
 } from './contexts';
 import { Layout } from './components/layout';
-import { routes, preloadCriticalPages } from './router';
+import { routes, adminRoutes, preloadCriticalPages } from './router';
 import { useCartItemCount } from './stores';
 
 // Create a react-query client
@@ -51,13 +51,21 @@ function AppContent() {
         />
         <meta property="og:site_name" content="House of Venus" />
         <meta property="og:type" content="website" />
-        {/* TODO: Add real OG image */}
         <meta property="og:image" content="/images/og-image.jpg" />
         <link rel="canonical" href="https://houseofvenus.com" />
       </Helmet>
 
-      {/* Routes with Layout */}
       <Routes>
+        {/* Admin routes — separate layout (no site header/footer) */}
+        <Route path={adminRoutes.path} element={adminRoutes.element}>
+          {adminRoutes.children.map((child, idx) => (
+            child.index
+              ? <Route key={idx} index element={child.element} />
+              : <Route key={idx} path={child.path} element={child.element} />
+          ))}
+        </Route>
+
+        {/* Main site routes — with standard Layout (header + footer) */}
         <Route
           element={
             <Layout

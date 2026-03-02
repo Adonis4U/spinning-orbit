@@ -1,0 +1,333 @@
+/* ===========================================
+   VENUS SIGN DETAIL — CSS
+   Individual sign collection page
+   =========================================== */
+
+.page {
+    min-height: 100vh;
+    background: var(--color-bg);
+}
+
+/* --- HERO --- */
+.hero {
+    position: relative;
+    padding: 6.5rem 1.5rem 3.5rem;
+    overflow: hidden;
+}
+
+.heroBg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.85;
+    transition: opacity 0.5s;
+}
+
+.heroOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg,
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(0, 0, 0, 0.5) 50%,
+            var(--color-bg) 100%);
+}
+
+.heroContent {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.breadcrumb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: hsla(0, 0%, 100%, 0.55);
+    margin-bottom: 2rem;
+}
+
+.breadcrumb a {
+    color: hsla(0, 0%, 100%, 0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+    color: #fff;
+}
+
+.signSymbol {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 0.75rem;
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3));
+}
+
+.signName {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    color: #fff;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+}
+
+.signElement {
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: hsla(0, 0%, 100%, 0.6);
+    margin-bottom: 1.25rem;
+}
+
+.signMood {
+    font-size: 1rem;
+    color: hsla(0, 0%, 100%, 0.8);
+    font-style: italic;
+    line-height: 1.6;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* --- STYLE TAGS --- */
+.styleTags {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.styleTag {
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    background: hsla(0, 0%, 100%, 0.12);
+    color: hsla(0, 0%, 100%, 0.85);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+/* --- PRODUCTS SECTION --- */
+.productsSection {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 5rem;
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.productCount {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.sortBar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.sortLabel {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+}
+
+.sortSelect {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--color-border-light);
+    background: var(--color-bg);
+    color: var(--color-text-primary);
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+/* Products Grid */
+.productsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+/* --- EMPTY STATE --- */
+.emptyState {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--color-text-secondary);
+}
+
+.emptyIcon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.4;
+}
+
+.emptyTitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.emptyText {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.emptyLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-rose);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: opacity 0.2s;
+}
+
+.emptyLink:hover {
+    opacity: 0.8;
+}
+
+/* --- OTHER SIGNS --- */
+.otherSignsSection {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem 5rem;
+}
+
+.otherSignsTitle {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.otherSignsGrid {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.otherSignsGrid::-webkit-scrollbar {
+    height: 4px;
+}
+
+.otherSignsGrid::-webkit-scrollbar-thumb {
+    background: var(--color-border-light);
+    border-radius: 4px;
+}
+
+.otherSignCard {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 1rem 1.2rem;
+    border-radius: 12px;
+    background: var(--color-surface-card);
+    border: 1.5px solid var(--color-border-light);
+    text-decoration: none;
+    color: var(--color-text-primary);
+    transition: all 0.3s ease;
+    min-width: 100px;
+}
+
+.otherSignCard:hover {
+    border-color: var(--color-text-secondary);
+    transform: translateY(-3px);
+}
+
+.otherSignCard.currentSign {
+    border-color: var(--color-rose);
+    background: hsla(340, 60%, 55%, 0.08);
+}
+
+.otherSignSymbol {
+    font-size: 1.5rem;
+}
+
+.otherSignName {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* --- LOADING --- */
+.loadingGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.skeleton {
+    background: var(--color-surface-card);
+    border-radius: 16px;
+    aspect-ratio: 3 / 4;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .hero {
+        padding: 5.5rem 1rem 2.5rem;
+    }
+
+    .signSymbol {
+        font-size: 3rem;
+    }
+
+    .productsGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .sectionHeader {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .productsGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+}

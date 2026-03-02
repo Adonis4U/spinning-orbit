@@ -8,25 +8,42 @@
     margin-top: auto;
 }
 
-/* Newsletter Section */
+/* =========================================== 
+   NEWSLETTER SECTION
+   =========================================== */
+
 .newsletterSection {
     background: linear-gradient(135deg,
             var(--color-cosmic) 0%,
             hsl(280, 50%, 35%) 50%,
             var(--color-cosmic) 100%);
-    padding: var(--space-12) var(--space-4);
+    padding: var(--space-10) var(--space-4);
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.newsletterSection::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='1' fill='white' opacity='0.1'/%3E%3C/svg%3E");
+    background-size: 50px 50px;
+    opacity: 0.3;
+    pointer-events: none;
 }
 
 @media screen and (min-width: 768px) {
     .newsletterSection {
-        padding: var(--space-16) var(--space-6);
+        padding: var(--space-12) var(--space-6);
     }
 }
 
 .newsletterContent {
     max-width: 600px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
 .newsletterTitle {
@@ -106,7 +123,79 @@
     transform: translateY(-2px);
 }
 
-/* Main Footer Content */
+/* =========================================== 
+   TRUST BADGES SECTION
+   =========================================== */
+
+.trustBadgesSection {
+    background-color: var(--color-bg-tertiary);
+    padding: var(--space-6) var(--space-4);
+    border-bottom: var(--border-width-thin) solid var(--color-border-light);
+}
+
+.trustBadgesGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    max-width: var(--container-full);
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 480px) {
+    .trustBadgesGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .trustBadgesGrid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-6);
+    }
+}
+
+.trustBadge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    text-align: center;
+    padding: var(--space-3);
+}
+
+.trustBadgeIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    color: var(--color-cosmic);
+    background-color: var(--color-bg-elevated);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-sm);
+}
+
+.trustBadgeIcon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.trustBadgeTitle {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+}
+
+.trustBadgeText {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-snug);
+}
+
+/* =========================================== 
+   MAIN FOOTER CONTENT
+   =========================================== */
+
 .footerMain {
     max-width: var(--container-full);
     margin: 0 auto;
@@ -212,10 +301,10 @@
 }
 
 .footerLink:hover {
-    color: var(--color-gold);
+    color: var(--color-cosmic);
 }
 
-/* Social Links */
+/* Social Links - LARGER SIZE */
 .socialLinks {
     display: flex;
     gap: var(--space-3);
@@ -226,8 +315,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     color: var(--color-text-secondary);
     background-color: var(--color-surface-card);
     border: var(--border-width-thin) solid var(--color-border-light);
@@ -238,17 +327,21 @@
 
 .socialLink:hover {
     color: var(--color-text-inverse);
-    background-color: var(--color-gold);
-    border-color: var(--color-gold);
-    transform: translateY(-2px);
+    background-color: var(--color-cosmic);
+    border-color: var(--color-cosmic);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
 }
 
 .socialLink svg {
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 22px;
 }
 
-/* Footer Bottom */
+/* =========================================== 
+   FOOTER BOTTOM - Payment Icons
+   =========================================== */
+
 .footerBottom {
     border-top: var(--border-width-thin) solid var(--color-border-light);
     padding: var(--space-6) var(--space-4);
@@ -266,13 +359,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-4);
+    gap: var(--space-6);
 }
 
 @media screen and (min-width: 768px) {
     .footerBottomContent {
         flex-direction: row;
         justify-content: space-between;
+        flex-wrap: wrap;
     }
 }
 
@@ -297,19 +391,36 @@
 }
 
 .legalLink:hover {
-    color: var(--color-gold);
+    color: var(--color-cosmic);
 }
 
-/* Payment Icons Placeholder */
+/* Payment Icons */
 .paymentIcons {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: var(--space-2);
-    opacity: 0.6;
 }
 
 .paymentIcon {
-    width: 40px;
-    height: 24px;
-    background-color: var(--color-surface-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 32px;
+    background-color: var(--color-bg-elevated);
+    border: var(--border-width-thin) solid var(--color-border-light);
     border-radius: var(--radius-sm);
+    padding: var(--space-1);
+    transition: border-color var(--duration-fast) var(--ease-in-out);
+}
+
+.paymentIcon:hover {
+    border-color: var(--color-border-dark);
+}
+
+.paymentIcon svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }

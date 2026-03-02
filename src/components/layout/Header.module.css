@@ -351,14 +351,14 @@
     }
 }
 
-/* Icon Buttons */
+/* Icon Buttons - Touch Optimized (min 44x44px) */
 .iconButton {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     color: var(--color-text-secondary);
     background: transparent;
     border: none;
@@ -386,13 +386,13 @@
     background-color: var(--color-surface-hover);
 }
 
-/* Language Toggle */
+/* Language Toggle - Touch Optimized */
 .langToggle {
     display: none;
     align-items: center;
     justify-content: center;
-    min-width: 40px;
-    height: 40px;
+    min-width: 44px;
+    height: 44px;
     padding: 0 var(--space-2);
     font-size: 0.7rem;
     font-weight: var(--font-weight-bold);
@@ -423,14 +423,14 @@
     font-weight: var(--font-weight-bold);
 }
 
-/* Cart Button */
+/* Cart Button - Touch Optimized */
 .cartButton {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     color: var(--color-text-secondary);
     background: transparent;
     border: none;
@@ -679,14 +679,14 @@
     box-shadow: 0 2px 8px rgba(199, 165, 111, 0.4);
 }
 
-/* Mobile Cart Button (shown when search combo is hidden) */
+/* Mobile Cart Button - Touch Optimized (min 44x44px) */
 .mobileCartButton {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     color: var(--color-text-secondary);
     background: transparent;
     border: none;

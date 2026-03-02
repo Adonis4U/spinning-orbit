@@ -3,7 +3,10 @@
    =========================================== */
 
 export { useProducts } from './useProducts';
-export type { Product } from './useProducts';
+export type { Product, ProductSortBy } from './useProducts';
+
+export { useProductsBySign, useProductCountsBySign } from './useProductsBySign';
+export type { SignProduct } from './useProductsBySign';
 
 export { useCollections } from './useCollections';
 export type { Collection } from './useCollections';

@@ -541,12 +541,12 @@ export default function VenusCalculator() {
                                                         }
                                                     </p>
                                                     <div className={styles.shopCtas}>
-                                                        <Link to={`/collections/${result}`} className={styles.shopPrimary}>
+                                                        <Link to={`/venus-collections/${result}`} className={styles.shopPrimary}>
                                                             {language === 'en' ? 'Shop' : 'Kup'} {language === 'en' ? signData?.name.en : signData?.name.pl} {language === 'en' ? 'Collection' : 'Kolekcję'}
                                                             <ArrowRight size={16} />
                                                         </Link>
-                                                        <Link to={`/lookbook/${result}`} className={styles.shopSecondary}>
-                                                            {language === 'en' ? 'View Lookbook' : 'Zobacz Lookbook'}
+                                                        <Link to="/venus-collections" className={styles.shopSecondary}>
+                                                            {language === 'en' ? 'All Venus Collections' : 'Wszystkie Kolekcje Wenus'}
                                                         </Link>
                                                     </div>
                                                 </motion.section>

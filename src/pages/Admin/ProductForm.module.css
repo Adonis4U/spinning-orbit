@@ -1,0 +1,355 @@
+/* ===========================================
+   ADMIN PRODUCT FORM
+   Add/Edit product modal form
+   =========================================== */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem;
+    overflow-y: auto;
+}
+
+.modal {
+    width: 100%;
+    max-width: 760px;
+    background: var(--admin-surface, hsl(265, 20%, 14%));
+    border-radius: 20px;
+    border: 1px solid var(--admin-border, hsla(265, 30%, 40%, 0.2));
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+    margin: 1rem 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--admin-border, hsla(265, 30%, 40%, 0.2));
+}
+
+.title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.closeBtn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: none;
+    background: hsla(0, 0%, 100%, 0.06);
+    color: hsla(0, 0%, 100%, 0.5);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.closeBtn:hover {
+    background: hsla(0, 70%, 60%, 0.15);
+    color: hsl(0, 70%, 65%);
+}
+
+.body {
+    padding: 2rem;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.body::-webkit-scrollbar {
+    width: 5px;
+}
+
+.body::-webkit-scrollbar-thumb {
+    background: hsla(265, 30%, 40%, 0.3);
+    border-radius: 5px;
+}
+
+/* --- FORM SECTIONS --- */
+.formSection {
+    margin-bottom: 2rem;
+}
+
+.sectionLabel {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--admin-accent, hsl(265, 72%, 62%));
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+}
+
+.formGroup.fullWidth {
+    grid-column: 1 / -1;
+}
+
+.label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: hsla(0, 0%, 100%, 0.7);
+}
+
+.input,
+.textarea,
+.select {
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    border-radius: 10px;
+    border: 1.5px solid var(--admin-border, hsla(265, 30%, 40%, 0.2));
+    background: hsla(0, 0%, 0%, 0.2);
+    color: #fff;
+    font-size: 0.9rem;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+    outline: none;
+    border-color: var(--admin-accent, hsl(265, 72%, 62%));
+    box-shadow: 0 0 0 3px hsla(265, 72%, 62%, 0.15);
+}
+
+.textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23888' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    padding-right: 2rem;
+}
+
+/* --- VENUS SIGNS CHECKER --- */
+.signsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+.signCheck {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.6rem;
+    border-radius: 8px;
+    border: 1.5px solid var(--admin-border, hsla(265, 30%, 40%, 0.2));
+    background: transparent;
+    color: hsla(0, 0%, 100%, 0.55);
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.signCheck:hover {
+    border-color: hsla(265, 50%, 55%, 0.4);
+    background: hsla(265, 50%, 50%, 0.06);
+}
+
+.signCheck.active {
+    border-color: var(--admin-accent, hsl(265, 72%, 62%));
+    background: hsla(265, 72%, 62%, 0.12);
+    color: #fff;
+}
+
+.signSymbol {
+    font-size: 1rem;
+}
+
+/* --- FLAGS --- */
+.flagsRow {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.flagBtn {
+    padding: 0.45rem 1rem;
+    border-radius: 100px;
+    border: 1.5px solid var(--admin-border, hsla(265, 30%, 40%, 0.2));
+    background: transparent;
+    color: hsla(0, 0%, 100%, 0.55);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.flagBtn:hover {
+    border-color: hsla(265, 50%, 55%, 0.4);
+}
+
+.flagBtn.active {
+    background: hsla(265, 72%, 62%, 0.15);
+    border-color: var(--admin-accent, hsl(265, 72%, 62%));
+    color: #fff;
+}
+
+/* --- IMAGES --- */
+.imageInputRow {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.imageInputRow .input {
+    flex: 1;
+}
+
+.removeBtn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    background: hsla(0, 70%, 55%, 0.12);
+    color: hsl(0, 70%, 65%);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+
+.removeBtn:hover {
+    background: hsla(0, 70%, 55%, 0.25);
+}
+
+.addImageBtn {
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1.5px dashed var(--admin-border, hsla(265, 30%, 40%, 0.3));
+    background: transparent;
+    color: hsla(0, 0%, 100%, 0.4);
+    font-size: 0.8rem;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.addImageBtn:hover {
+    border-color: var(--admin-accent, hsl(265, 72%, 62%));
+    color: var(--admin-accent, hsl(265, 72%, 62%));
+}
+
+/* --- FOOTER --- */
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1.25rem 2rem;
+    border-top: 1px solid var(--admin-border, hsla(265, 30%, 40%, 0.2));
+}
+
+.cancelBtn {
+    padding: 0.65rem 1.5rem;
+    border-radius: 10px;
+    border: 1.5px solid var(--admin-border, hsla(265, 30%, 40%, 0.2));
+    background: transparent;
+    color: hsla(0, 0%, 100%, 0.6);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cancelBtn:hover {
+    background: hsla(0, 0%, 100%, 0.05);
+    color: #fff;
+}
+
+.saveBtn {
+    padding: 0.65rem 1.5rem;
+    border-radius: 10px;
+    border: none;
+    background: var(--admin-accent, hsl(265, 72%, 62%));
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.saveBtn:hover {
+    background: hsl(265, 72%, 55%);
+    transform: translateY(-1px);
+}
+
+.saveBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* --- ERROR MSG --- */
+.errorMsg {
+    padding: 0.65rem 1rem;
+    border-radius: 10px;
+    background: hsla(0, 70%, 55%, 0.12);
+    border: 1px solid hsla(0, 70%, 55%, 0.2);
+    color: hsl(0, 70%, 70%);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 640px) {
+    .formRow {
+        grid-template-columns: 1fr;
+    }
+
+    .signsGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .modal {
+        margin: 0.5rem 0;
+    }
+
+    .header,
+    .body,
+    .footer {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+}
